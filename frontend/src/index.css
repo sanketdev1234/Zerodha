@@ -12,3 +12,6 @@
 a:hover{
   font-weight: 600!important;
 }
+img:hover{
+  opacity: 0.8;
+}

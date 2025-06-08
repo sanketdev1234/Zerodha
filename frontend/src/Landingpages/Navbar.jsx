@@ -41,7 +41,7 @@ function Navbar(){
             </Link>
             <ul className="dropdown-menu">
               <li><Link className="dropdown-item fw-normal" to="/kite">
-           <img
+          <img
             src="./src/assets/kite-logo.svg"
             alt="kite"
             className="img-fluid"
