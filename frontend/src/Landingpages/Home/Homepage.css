@@ -1,0 +1,8 @@
+  .custom-hover-black {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.custom-hover-black:hover {
+  background-color: black !important;
+  border-color: black !important;
+  color: white !important;
+}
