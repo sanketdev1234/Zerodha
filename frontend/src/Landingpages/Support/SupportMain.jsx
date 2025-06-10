@@ -3,8 +3,8 @@ import Hero_support from "./HeroBlueBackground";
 function SupportMain(){
     return (
         <div>
-            <Ticket/>
             <Hero_support/>
+            <Ticket/>
         </div>
     )
 }
