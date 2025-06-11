@@ -1,5 +1,28 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 function TopBar(){
+  let [linkactive , setlinkactive]=useState("Dashboard");
+  let [isprofileclicked , setisprofileclicked]=useState(false);
+  
+  let handlelinkclick=(val)=>{
+  setlinkactive(val);
+  }
+  let profileclicked=()=>{
+    setisprofileclicked(!isprofileclicked);
+  }
+
+  let handlechangeinput=(event)=>{
+    console.log(event.target.name);
+    console.log(event.target.value);
+    setlinkactive(currdata)
+    }
+
+
+let handlesubmit=(event)=>{
+    event.preventDefault();
+    console.log(linkactive);
+}
+
     return (
     <>
     <nav className="navbar bg-body-tertiary fixed-top border border-2">
@@ -12,7 +35,7 @@ function TopBar(){
     </button>
     <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div className="offcanvas-header">
-        <Link className="offcanvas-title fs-3 text-decoration-none " id="offcanvasNavbarLabel ">
+        <Link className="offcanvas-title fs-3 text-decoration-none " id="offcanvasNavbarLabel" onClick={profileclicked} style={{ color: isprofileclicked  ? "orange" : "blue" }}>
           <i className='fa-solid fa-user-tie me-2'></i>
           UJG157</Link>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -20,31 +43,40 @@ function TopBar(){
       <div className="offcanvas-body">
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li className="nav-item">
-            <Link className="nav-link active fs-5 fw-medium" aria-current="page" to="#">Dashboard</Link>
+            <Link className="nav-link active fs-5 fw-medium " aria-current="page" to="/"
+            onClick={()=>handlelinkclick("Dashboard")}  
+            style={{ color: linkactive === "Dashboard" ? "orange" : "black" }}
+            >
+              Dashboard</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link fw-normal" to="#">Apps</Link>
+            <Link className="nav-link fw-normal" to="/apps" 
+            onClick={()=>handlelinkclick("Apps")} style={{ color: linkactive === "Apps" ? "orange" : "black" }}>
+            Apps</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link fw-normal" to="#">Orders</Link>
+            <Link className="nav-link fw-normal" to="/orders" 
+            onClick={()=>handlelinkclick("Orders")}  style={{ color: linkactive === "Orders" ? "orange" : "black" }}>
+              Orders</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link fw-normal" to="#">Holdings</Link>
+            <Link className="nav-link fw-normal" to="holdings" onClick={()=>handlelinkclick("Holdings")} style={{ color: linkactive === "Holdings" ? "orange" : "black" }}>Holdings</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link fw-normal" to="#">Positions</Link>
+            <Link className="nav-link fw-normal" to="positions" onClick={()=>handlelinkclick("Positions")} style={{ color: linkactive === "Positions" ? "orange" : "black" }}>Positions</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link fw-normal" to="#">Funds</Link>
+            <Link className="nav-link fw-normal" to="funds" onClick={()=>handlelinkclick("Funds")} style={{ color: linkactive === "Funds" ? "orange" : "black" }}>Funds</Link>
           </li>
           <li className="nav-item dropdown">
-            <Link className="nav-link fw-normal dropdown-toggle" to="/app&services" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <Link className="nav-link fw-normal dropdown-toggle" to="/app&services" role="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={()=>handlelinkclick("live market index ticker")} 
+            style={{ color: linkactive === "live market index ticker" ? "orange" : "black" }}>
               live market index ticker 
             </Link>
             <ul className="dropdown-menu">
-              <li><Link className="dropdown-item fw-medium " to="#" style={{color:"green"}} id="gradient-text">
+              <li><Link className="dropdown-item fw-medium " to="#" style={{color:"green"}} id="gradient-text" >
               NIFTY 50 25104.25 1.05 (0.00%)</Link></li>
-              <li><Link className="dropdown-item fw-medium" to="#" style={{color:"green"}} id="gradient-text">
+              <li><Link className="dropdown-item fw-medium" to="#" style={{color:"green"}} id="gradient-text" >
             SENSEX 82391.72 -53.49 (-0.06%)</Link></li>
               <li>
                 <hr className="dropdown-divider"/>
@@ -52,9 +84,9 @@ function TopBar(){
             </ul>
           </li>
         </ul>
-        <form className="d-flex mt-3" role="search">
+        <form className="d-flex mt-3" role="search" onChange={handlechangeinput}>
           <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-          <button className="btn btn-outline-success" type="submit">Search</button>
+          <button onSubmit={handlesubmit}className="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
     </div>
