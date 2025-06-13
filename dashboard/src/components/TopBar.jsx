@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { Avatar, Box } from "@mui/material";
+import Stack from '@mui/material/Stack';
+import { deepOrange} from '@mui/material/colors';
 function TopBar(){
   let [linkactive , setlinkactive]=useState("Dashboard");
   let [isprofileclicked , setisprofileclicked]=useState(false);
@@ -12,9 +15,10 @@ function TopBar(){
   }
 
   let handlechangeinput=(event)=>{
-    console.log(event.target.name);
+    console.log("sanket" ,event.target.name);
     console.log(event.target.value);
-    setlinkactive(currdata)
+    console.log(event);
+    setlinkactive(event.target.value);
     }
 
 
@@ -35,9 +39,18 @@ let handlesubmit=(event)=>{
     </button>
     <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div className="offcanvas-header">
-        <Link className="offcanvas-title fs-3 text-decoration-none " id="offcanvasNavbarLabel" onClick={profileclicked} style={{ color: isprofileclicked  ? "orange" : "blue" }}>
-          <i className='fa-solid fa-user-tie me-2'></i>
-          UJG157</Link>
+<Link
+  className="offcanvas-title fs-3 text-decoration-none"
+  id="offcanvasNavbarLabel"
+  onClick={profileclicked}
+  style={{ color: isprofileclicked ? "orange" : "blue" }}
+>
+  <Box display="flex" alignItems="center" gap={1}>
+    
+    <Avatar sx={{ bgcolor: deepOrange[500] }}>SZ</Avatar>
+    <span>UJG157</span>
+  </Box>
+</Link>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div className="offcanvas-body">
@@ -60,13 +73,13 @@ let handlesubmit=(event)=>{
               Orders</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link fw-normal" to="holdings" onClick={()=>handlelinkclick("Holdings")} style={{ color: linkactive === "Holdings" ? "orange" : "black" }}>Holdings</Link>
+            <Link className="nav-link fw-normal" to="/holdings" onClick={()=>handlelinkclick("Holdings")} style={{ color: linkactive === "Holdings" ? "orange" : "black" }}>Holdings</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link fw-normal" to="positions" onClick={()=>handlelinkclick("Positions")} style={{ color: linkactive === "Positions" ? "orange" : "black" }}>Positions</Link>
+            <Link className="nav-link fw-normal" to="/positions" onClick={()=>handlelinkclick("Positions")} style={{ color: linkactive === "Positions" ? "orange" : "black" }}>Positions</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link fw-normal" to="funds" onClick={()=>handlelinkclick("Funds")} style={{ color: linkactive === "Funds" ? "orange" : "black" }}>Funds</Link>
+            <Link className="nav-link fw-normal" to="/funds" onClick={()=>handlelinkclick("Funds")} style={{ color: linkactive === "Funds" ? "orange" : "black" }}>Funds</Link>
           </li>
           <li className="nav-item dropdown">
             <Link className="nav-link fw-normal dropdown-toggle" to="/app&services" role="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={()=>handlelinkclick("live market index ticker")} 
@@ -84,9 +97,9 @@ let handlesubmit=(event)=>{
             </ul>
           </li>
         </ul>
-        <form className="d-flex mt-3" role="search" onChange={handlechangeinput}>
-          <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-          <button onSubmit={handlesubmit}className="btn btn-outline-success" type="submit">Search</button>
+        <form className="d-flex mt-3" role="search"  onSubmit={handlesubmit}>
+          <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={handlechangeinput} name="inputsearch"/>
+          <button className="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
     </div>
