@@ -1,0 +1,56 @@
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+
+const mongoose=require("mongoose");
+
+const Holding=require("../model/HoldingsSchema.js");
+const Position=require("../model/PositionSchema.js");
+const Ordering=require("../model/OrdersSchema.js");
+
+const samplePositions =require("../initialize/data.js").samplePositions;
+const sampleHoldings =require("../initialize/data.js").sampleHoldings;
+const sampleOrders =require("../initialize/data.js").sampleOrders;
+
+console.log(sampleHoldings)
+console.log(sampleOrders)
+console.log(samplePositions)
+
+const dburl=process.env.ATLAS_DBURL;
+console.log(dburl)
+main()
+  .then(() => {
+    console.log("connection successful");
+  })
+  .catch((err) => console.log(err));
+
+  // connect to localhost
+// async function main() {
+//   await mongoose.connect("mongodb://localhost:27017/Zerodha");
+// }
+
+
+//connect to atlas
+async function main() {
+  await mongoose.connect(dburl);
+}
+
+
+async function initialize_data_Holding(){
+    await Holding.deleteMany({});
+    await Holding.insertMany(sampleHoldings); 
+};
+
+initialize_data_Holding()
+
+async function initialize_data_Position(){
+    await Position.deleteMany({});
+    await Position.insertMany(samplePositions); 
+};
+
+initialize_data_Position()
+
+async function initialize_data_Orders(){
+    await Ordering.deleteMany({});
+    await Ordering.insertMany(sampleOrders); 
+};
+
+initialize_data_Orders()
