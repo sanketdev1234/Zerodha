@@ -1,5 +1,16 @@
-import {positions}  from "./data/data.js";
+import { useState,useEffect } from "react";
+const url="http://localhost:8080/getposition"
+
 function Positions() {
+    let [positions,setpositions]=useState([]);
+        useEffect(()=>{
+          async function generatedata(){
+              let getdata=await fetch(url);
+          let jsongetdata=await getdata.json();
+          console.log("tha data is",[jsongetdata]);
+      setpositions([jsongetdata][0].position);
+          }generatedata()
+      } ,[])
     return (
         <div className="container text-center mt-5 py-5">
             <h1 className="fw-normal">Positions ({positions.length}) </h1>
@@ -20,21 +31,21 @@ function Positions() {
         <tbody>
 
         {positions.map((stock ,index) => {
-            const curValue = stock.price * stock.qty;
-            const isProfit = curValue - stock.avg * stock.qty >= 0.0;
+            const curValue = stock.price * stock.Quantity;
+            const isProfit = curValue - stock.Average * stock.Quantity >= 0.0;
 
             return (
-              <tr key={index}>
+              <tr key={stock.id}>
               
-                <td>{stock.product}</td>
-                <td>{stock.name}</td>
-                <td>{stock.qty}</td>
-                <td>{stock.avg.toFixed(2)}</td>
+                <td>{stock.Product}</td>
+                <td>{stock.Name}</td>
+                <td>{stock.Quantity}</td>
+                <td>{stock.Average}</td>
                 <td>{stock.price.toFixed(2)}</td>
                 <td  style={{fontWeight:"500",color: isProfit ? "green" : "red"}}>
-                  {(curValue - stock.avg * stock.qty).toFixed(2)}
+                  {(curValue - stock.Average * stock.Quantity).toFixed(2)}
                 </td>
-                <td style={{fontWeight:"500",color: isProfit ? "green" : "red"}}>{stock.day}</td>
+                <td style={{fontWeight:"500",color: isProfit ? "green" : "red"}}>{stock.Day}</td>
               
               </tr>
             );

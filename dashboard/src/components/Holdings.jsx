@@ -1,5 +1,16 @@
-import {holdings}  from "./data/data.js";
+import { useState,useEffect } from "react";
+const url="http://localhost:8080/getholding"
+
 function Holdings() {
+  let [holdings,setholdings]=useState([]);
+      useEffect(()=>{
+        async function generatedata(){
+            let getdata=await fetch(url);
+        let jsongetdata=await getdata.json();
+        console.log("tha data is",[jsongetdata]);
+    setholdings([jsongetdata][0].holding);
+        }generatedata()
+    } ,[])
     return (
         <div className="container text-center mt-5 py-5">
             <h1 className="fw-normal">Holdings ({holdings.length}) </h1>
@@ -20,22 +31,22 @@ function Holdings() {
         </thead>
         <tbody>
 
-        {holdings.map((stock ,index) => {
-            const curValue = stock.price * stock.qty;
-            const isProfit = curValue - stock.avg * stock.qty >= 0.0;
+        {holdings.map((stock,id) => {
+            const curValue = stock.price * stock.Quantity;
+            const isProfit = curValue - stock.Average * stock.Quantity >= 0.0;
 
             return (
-              <tr key={index}>
-                <td>{stock.name}</td>
-                <td>{stock.qty}</td>
-                <td>{stock.avg}</td>
+              <tr key={stock.id}>
+                <td>{stock.Name}</td>
+                <td>{stock.Quantity}</td>
+                <td>{stock.Average}</td>
                 <td>{stock.price.toFixed(2)}</td>
                 <td>{curValue.toFixed(2)}</td>
                 <td style={{fontWeight:"500",color: isProfit ? "green" : "red"}}>
                   {(curValue - stock.avg * stock.qty).toFixed(2)}
                 </td>
-                <td style={{fontWeight:"500",color: isProfit ? "green" : "red"}}>{stock.net}</td>
-                <td style={{fontWeight:"500",color: isProfit ? "green" : "red"}}>{stock.day}</td>
+                <td style={{fontWeight:"500",color: isProfit ? "green" : "red"}}>{stock.Net}</td>
+                <td style={{fontWeight:"500",color: isProfit ? "green" : "red"}}>{stock.Day}</td>
               </tr>
             );
           })}
