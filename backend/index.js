@@ -16,6 +16,7 @@ const dburl=process.env.ATLAS_DBURL;
 const Holding=require("./model/HoldingsSchema.js");
 const Position=require("./model/PositionSchema.js");
 const Ordering=require("./model/OrdersSchema.js");
+const Watchlist=require("./model/WatchlistSchema.js");
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
@@ -29,15 +30,15 @@ main()
   .catch((err) => console.log(err));
 
 //   // connecting the mongo db with the localhost
-async function main() {
-  await mongoose.connect("mongodb://localhost:27017/Zerodha");
-}
+// async function main() {
+//   await mongoose.connect("mongodb://localhost:27017/Zerodha");
+// }
 
 
 // // connecting the mongo database with the mongoatlas cloud servive
-// async function main() {
-//   await mongoose.connect(dburl);
-// }
+async function main() {
+  await mongoose.connect(dburl);
+}
 
 app.listen(port , ()=>{
     console.log(`server is running on port ${port}`);
@@ -55,4 +56,7 @@ app.get("/getposition",async(req,res)=>{
 const position=await Position.find();
   res.send({position });
 })
-
+app.get("/getwatchlist",async(req,res)=>{
+const watchlist=await Watchlist.find();
+  res.send({watchlist});
+});

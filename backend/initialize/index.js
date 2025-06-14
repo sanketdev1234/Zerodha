@@ -5,14 +5,16 @@ const mongoose=require("mongoose");
 const Holding=require("../model/HoldingsSchema.js");
 const Position=require("../model/PositionSchema.js");
 const Ordering=require("../model/OrdersSchema.js");
+const Watchlist=require("../model/WatchlistSchema.js");
 
 const samplePositions =require("../initialize/data.js").samplePositions;
 const sampleHoldings =require("../initialize/data.js").sampleHoldings;
 const sampleOrders =require("../initialize/data.js").sampleOrders;
-
+const sampleWatchlist =require("../initialize/data.js").sampleWatchlist;
 console.log(sampleHoldings)
 console.log(sampleOrders)
 console.log(samplePositions)
+console.log(sampleWatchlist)
 
 const dburl=process.env.ATLAS_DBURL;
 console.log(dburl)
@@ -54,3 +56,10 @@ async function initialize_data_Orders(){
 };
 
 initialize_data_Orders()
+
+async function initialize_data_Watchlist(){
+    await Watchlist.deleteMany({});
+    await Watchlist.insertMany(sampleWatchlist); 
+};
+
+initialize_data_Watchlist();

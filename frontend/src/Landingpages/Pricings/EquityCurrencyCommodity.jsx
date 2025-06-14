@@ -3,6 +3,8 @@ import Currency from "./Currency";
 import Commodity from "./Commodity";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
 
 function EquityCurrencyCommodity() {
   const [activetab, setactivetab] = useState("Equity");
@@ -19,6 +21,14 @@ function EquityCurrencyCommodity() {
     setactivetab("Commodity");
   }
 
+  
+  // Animation variants
+  const variants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -20 }
+  };
+  
   return (
     <div className="container mt-5">
       <div className="d-flex flex-row gap-3 justify-content-center border-bottom border-2 py-2">
@@ -63,7 +73,42 @@ function EquityCurrencyCommodity() {
       </div>
 
       <div className="mt-4">
-        {activetab === "Equity" ? <Equity /> : activetab === "Currency" ? <Currency /> : <Commodity />}
+      <AnimatePresence mode="wait">
+        {activetab ==="Equity" ?
+                <motion.div
+                key="equity"
+                variants={variants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={{ duration: 0.4 }}
+                  >
+        <Equity /> 
+        </motion.div>
+      : activetab === "Currency" ? 
+      <motion.div
+              key="currency"
+              variants={variants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.4 }}
+            >
+              <Currency /> 
+            </motion.div>
+      : 
+      <motion.div
+              key="commodity"
+              variants={variants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.4 }}
+            >
+              <Commodity />
+            </motion.div>
+      }
+        </AnimatePresence>
       </div>
     </div>
   );
