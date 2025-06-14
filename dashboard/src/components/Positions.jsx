@@ -2,18 +2,18 @@ import { useState,useEffect } from "react";
 const url="http://localhost:8080/getposition"
 
 function Positions() {
-    let [positions,setpositions]=useState([]);
+    let [position,setposition]=useState([]);
         useEffect(()=>{
           async function generatedata(){
               let getdata=await fetch(url);
           let jsongetdata=await getdata.json();
           console.log("tha data is",[jsongetdata]);
-      setpositions([jsongetdata][0].position);
+      setposition([jsongetdata][0].position);
           }generatedata()
       } ,[])
     return (
         <div className="container text-center mt-5 py-5">
-            <h1 className="fw-normal">Positions ({positions.length}) </h1>
+            <h1 className="fw-normal">position ({position.length}) </h1>
             <div className="row">
               
         <table className="table table-striped text-start table-hover">
@@ -30,7 +30,7 @@ function Positions() {
         </thead>
         <tbody>
 
-        {positions.map((stock ,index) => {
+        {position.map((stock ,index) => {
             const curValue = stock.price * stock.Quantity;
             const isProfit = curValue - stock.Average * stock.Quantity >= 0.0;
 
