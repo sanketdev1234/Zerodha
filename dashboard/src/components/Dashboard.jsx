@@ -10,7 +10,6 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import NotFound from "./Notfound";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-
 function PageWrapper({ children }) {
   return (
     <motion.div

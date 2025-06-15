@@ -40,8 +40,8 @@ style={{
     </div>
     {mouseenter?
     (<Box component="section" sx={{ p: 2 , display: 'flex', gap: 2 , justifyContent:'end'}}>
-      <Avatar sx={{ bgcolor: deepOrange[500] }}>B</Avatar>
-      <Avatar sx={{ bgcolor: deepPurple[500] }}>S</Avatar>
+      <Avatar sx={{ bgcolor: deepOrange[500] ,cursor:"pointer"}}>B</Avatar>
+      <Avatar sx={{ bgcolor: deepPurple[500] ,cursor:"pointer"}}>S</Avatar>
     <Box component="section" sx={{ color:"black"}}>
     <FormatListBulletedIcon/>
     </Box>
@@ -51,10 +51,10 @@ style={{
     <Box component="section" sx={{color:"black"}}>
     <BarChartIcon/>
     </Box>
-        <Box component="section" sx={{color:"black"}}>
+        <Box component="section" sx={{color:"black" ,cursor:"pointer"}}>
     <DeleteIcon/>
     </Box>
-    </Box>):""
+    </Box>)  :""
 }
     
 </div>
