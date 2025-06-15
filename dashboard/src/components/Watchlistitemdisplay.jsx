@@ -6,10 +6,11 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import { deepOrange, deepPurple } from '@mui/material/colors';
 import { pink } from '@mui/material/colors';
 import { Link } from "react-router-dom";
+import BuyClick from "./BuyClick";
+import SellClick from "./SellClick";
+
 function Watchlistitemdisplay({item,fun}){
 
     let [mouseenter , setmouseenter]=useState(false);
@@ -40,8 +41,8 @@ style={{
     </div>
     {mouseenter?
     (<Box component="section" sx={{ p: 2 , display: 'flex', gap: 2 , justifyContent:'end'}}>
-      <Avatar sx={{ bgcolor: deepOrange[500] ,cursor:"pointer"}}>B</Avatar>
-      <Avatar sx={{ bgcolor: deepPurple[500] ,cursor:"pointer"}}>S</Avatar>
+      <BuyClick/>
+      <SellClick/>
     <Box component="section" sx={{ color:"black"}}>
     <FormatListBulletedIcon/>
     </Box>

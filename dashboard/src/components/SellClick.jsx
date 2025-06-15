@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import Draggable from 'react-draggable';
-import { deepOrange } from '@mui/material/colors';
+import { deepPurple } from '@mui/material/colors';
 
 function PaperComponent(props) {
   const nodeRef = React.useRef(null);
@@ -58,7 +58,7 @@ return {...currdata , [event.target.name]:event.target.value,Margin: margin}
     console.log(selldata);
     setselldata({
     Quantity:0,
-    PricePerQuantity:"0",
+    PricePerQuantity:0,
     TotalPrice:0,
     Margin:0
     })
@@ -66,7 +66,7 @@ return {...currdata , [event.target.name]:event.target.value,Margin: margin}
   return (
     <React.Fragment>
       <Button variant="text" onClick={handleClickOpen}>
-        <Avatar sx={{ bgcolor: deepOrange[500], cursor: "pointer" }}>B</Avatar>
+        <Avatar sx={{ bgcolor: deepPurple [500], cursor: "pointer" }}>S</Avatar>
       </Button>
       <Dialog
         open={open}

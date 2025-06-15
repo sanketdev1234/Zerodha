@@ -55,7 +55,7 @@ return {...currdata , [event.target.name]:event.target.value}
     console.log(buydata);
     setbuydata({
     Quantity:0,
-    PricePerQuantity:"0",
+    PricePerQuantity:0,
     TotalPrice:0
     })
   }
