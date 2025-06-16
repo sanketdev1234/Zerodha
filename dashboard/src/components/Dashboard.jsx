@@ -3,8 +3,8 @@ import WatchList from "./WatchList";
 import Positions from "./Positions";
 import Orders from "./Orders";
 import Holdings from "./Holdings";
-import Funds from "./Funds";
-import Apps from "./Apps";
+import Sell from "./Sell";
+import Buy from "./Buy";
 import Summary from "./Summary";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NotFound from "./Notfound";
@@ -33,8 +33,8 @@ function AnimatedRoutes({ arr }) {
         <Route path="/positions" element={<PageWrapper><Positions /></PageWrapper>} />
         <Route path="/orders" element={<PageWrapper><Orders /></PageWrapper>} />
         <Route path="/holdings" element={<PageWrapper><Holdings /></PageWrapper>} />
-        <Route path="/funds" element={<PageWrapper><Funds /></PageWrapper>} />
-        <Route path="/apps" element={<PageWrapper><Apps /></PageWrapper>} />
+        <Route path="/Sell" element={<PageWrapper><Sell /></PageWrapper>} />
+        <Route path="/buy" element={<PageWrapper><Buy /></PageWrapper>} />
         <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
       </Routes>
     </AnimatePresence>

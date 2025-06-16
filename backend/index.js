@@ -17,6 +17,8 @@ const Holding=require("./model/HoldingsSchema.js");
 const Position=require("./model/PositionSchema.js");
 const Ordering=require("./model/OrdersSchema.js");
 const Watchlist=require("./model/WatchlistSchema.js");
+const Buy=require("./model/BuySchema.js");
+const Sell=require("./model/SellSchema.js");
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
@@ -30,15 +32,15 @@ main()
   .catch((err) => console.log(err));
 
 //   // connecting the mongo db with the localhost
-// async function main() {
-//   await mongoose.connect("mongodb://localhost:27017/Zerodha");
-// }
+async function main() {
+  await mongoose.connect("mongodb://localhost:27017/Zerodha");
+}
 
 
 // // connecting the mongo database with the mongoatlas cloud servive
-async function main() {
-  await mongoose.connect(dburl);
-}
+// async function main() {
+//   await mongoose.connect(dburl);
+// }
 
 app.listen(port , ()=>{
     console.log(`server is running on port ${port}`);
@@ -70,4 +72,23 @@ app.delete("/deletewatchlist/:id",async(req,res)=>{
   const deleted_watchlist=await Watchlist.findByIdAndDelete(id);
   console.log(deleted_watchlist)
   res.send(deleted_watchlist);
+});
+
+app.post("/addbuy",async(req,res)=>{
+  const qty=req.body.Quantity;
+  const ppq=req.body.PricePerQuantity;
+  const tp=req.body.TotalPrice;
+  const newbuy= new Buy({Quantity:qty,PricePerQuantity:ppq,TotalPrice:tp});
+  await newbuy.save();
+  res.send(`added new buy stock ${newbuy}`);
+});
+
+app.post("/addsell",async(req,res)=>{
+  const qty=req.body.Quantity;
+  const ppq=req.body.PricePerQuantity;
+  const tp=req.body.TotalPrice;
+  const margin=req.body.Margin;
+  const newsell= new Sell({Quantity:qty,PricePerQuantity:ppq,TotalPrice:tp,Margin:margin});
+  await newsell.save();
+  res.send(`added new sell stock ${newsell}`);
 });

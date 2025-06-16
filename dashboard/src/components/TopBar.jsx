@@ -63,9 +63,9 @@ let handlesubmit=(event)=>{
               Dashboard</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link fw-normal" to="/apps" 
-            onClick={()=>handlelinkclick("Apps")} style={{ color: linkactive === "Apps" ? "orange" : "black" }}>
-            Apps</Link>
+            <Link className="nav-link fw-normal" to="/buy" 
+            onClick={()=>handlelinkclick("Buy")} style={{ color: linkactive === "Buy" ? "orange" : "black" }}>
+            Buys</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link fw-normal" to="/orders" 
@@ -79,7 +79,7 @@ let handlesubmit=(event)=>{
             <Link className="nav-link fw-normal" to="/positions" onClick={()=>handlelinkclick("Positions")} style={{ color: linkactive === "Positions" ? "orange" : "black" }}>Positions</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link fw-normal" to="/funds" onClick={()=>handlelinkclick("Funds")} style={{ color: linkactive === "Funds" ? "orange" : "black" }}>Funds</Link>
+            <Link className="nav-link fw-normal" to="/sell" onClick={()=>handlelinkclick("sell")} style={{ color: linkactive === "sell" ? "orange" : "black" }}>Sells</Link>
           </li>
           <li className="nav-item dropdown">
             <Link className="nav-link fw-normal dropdown-toggle" to="/app&services" role="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={()=>handlelinkclick("live market index ticker")} 

@@ -14,6 +14,8 @@ import {
 import Draggable from 'react-draggable';
 import { deepOrange } from '@mui/material/colors';
 
+let addbuyurl="http://localhost:8080/addbuy";
+
 function PaperComponent(props) {
   const nodeRef = React.useRef(null);
   return (
@@ -53,6 +55,24 @@ return {...currdata , [event.target.name]:event.target.value}
   const handlesubmit=(event)=>{
      event.preventDefault();
     console.log(buydata);
+     const total = buydata.Quantity * buydata.PricePerQuantity;
+     console.log(total);
+    axios.post(addbuyurl, {
+    Quantity: buydata.Quantity,
+    PricePerQuantity: buydata.PricePerQuantity,
+    TotalPrice:total
+  }, {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
     setbuydata({
     Quantity:0,
     PricePerQuantity:0,
@@ -119,7 +139,6 @@ return {...currdata , [event.target.name]:event.target.value}
               rows={2}
               variant="outlined"
               fullWidth
-              onChange={handlechangeinput}
               value={buydata.Quantity * buydata.PricePerQuantity}
             />
             <DialogActions sx={{ pr: 2, pb: 2 ,mr:5}}>
