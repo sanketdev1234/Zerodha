@@ -44,6 +44,10 @@ app.listen(port , ()=>{
     console.log(`server is running on port ${port}`);
 });
 
+app.get("/",async(req,res)=>{
+  res.send("Hi this is root folder")
+})
+
 app.get("/getholding",async(req,res)=>{
 const holding=await Holding.find();
   res.send({holding});
@@ -59,4 +63,11 @@ const position=await Position.find();
 app.get("/getwatchlist",async(req,res)=>{
 const watchlist=await Watchlist.find();
   res.send({watchlist});
+});
+
+app.delete("/deletewatchlist/:id",async(req,res)=>{
+  const id=req.params.id;
+  const deleted_watchlist=await Watchlist.findByIdAndDelete(id);
+  console.log(deleted_watchlist)
+  res.send(deleted_watchlist);
 });
