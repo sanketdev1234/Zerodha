@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import WatchTable from "./WatchTable.jsx";
 const url = "http://localhost:8080/getwatchlist";
 
+
 function WatchList({ fun }) {
     const [linkactive, setlinkactive] = useState("1");
     const [watchlist, setwatchlist] = useState([]);
@@ -24,6 +25,26 @@ function WatchList({ fun }) {
         }
         fetchData();
     }, []);
+
+    
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:8080/deletewatchlist/${id}`, {
+                method: 'DELETE'
+            });
+            if (response) {
+                console.log(response.status , response.statusText);
+                // Update both watchlist states after successful deletion
+                const updatedWatchlist = watchlist.filter(item => item._id !== id);
+                setwatchlist(updatedWatchlist);
+                setDisplayedWatchlist(updatedWatchlist.slice(0, 9));
+            } else {
+                console.error("Failed to delete item");
+            }
+        } catch (error) {
+            console.error("Error deleting item:", error);
+        }
+    };
 
     const handleonclick = (val) => {
         const pageSize = 9;
@@ -53,7 +74,7 @@ function WatchList({ fun }) {
                 <option value="nifty50tr1xinv">NIFTY50 TR 1X INV</option>
                 <option value="niftyit">NIFTY IT</option>
             </select>
-            <WatchTable watchlist={displayedWatchlist} fun={fun} />
+            <WatchTable watchlist={displayedWatchlist} fun={fun} onDelete={handleDelete} />
             <div className="container">
                 <div className="row d-flex flex-row gap-2">
                     <a href="#" className="col-1 text-center text-decoration-none" onClick={() => handleonclick(1)} style={{ borderTop: linkactive == 1 ? "2px solid orange" : "1px solid white" }}>1</a>
