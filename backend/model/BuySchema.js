@@ -16,7 +16,10 @@ TotalPrice:{
     type:Number,
     required:true
 },
-
+Company:{
+    type:String,
+    required:true
+},
 });
 
 

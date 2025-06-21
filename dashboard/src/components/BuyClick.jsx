@@ -29,12 +29,13 @@ function PaperComponent(props) {
   );
 }
 
-export default function BuyClick() {
+export default function BuyClick({Company}) {
   const [open, setOpen] = React.useState(false);
   const [buydata,setbuydata]=React.useState({
     Quantity:0,
     PricePerQuantity:0,
-    TotalPrice:0
+    TotalPrice:0,
+    Company:Company
   });
 
   const handleClickOpen = () => {
@@ -57,10 +58,12 @@ return {...currdata , [event.target.name]:event.target.value}
     console.log(buydata);
      const total = buydata.Quantity * buydata.PricePerQuantity;
      console.log(total);
+    
     axios.post(addbuyurl, {
     Quantity: buydata.Quantity,
     PricePerQuantity: buydata.PricePerQuantity,
-    TotalPrice:total
+    TotalPrice:total,
+    Company:Company
   }, {
   headers: {
     'Content-Type': 'application/json'
@@ -76,7 +79,8 @@ return {...currdata , [event.target.name]:event.target.value}
     setbuydata({
     Quantity:0,
     PricePerQuantity:0,
-    TotalPrice:0
+    TotalPrice:0,
+    Company:Company
     })
   }
   return (

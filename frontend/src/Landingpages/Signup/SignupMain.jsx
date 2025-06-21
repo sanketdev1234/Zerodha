@@ -1,19 +1,10 @@
-import StepsforDemat from "./StepsforDemat";
-import Hero_signup from "./Hero";
-import Faq from "./Faq";
-import Investment from "./Investment";
-import AboutMain from "../About/AboutMain";
-import Benifits from "./Benifits";
-
+import Signup from "./SignupHero";
+import Login from "./LoginHero";
 function SignupMain(){
     return (
         <div>
-        <StepsforDemat/>
-        <Hero_signup/>
-        <Faq/>
-        <Investment/>
-        <AboutMain/>
-        <Benifits/>
+        <Signup/>
+        <Login/>
         </div>
     )
 }

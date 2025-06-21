@@ -19,7 +19,11 @@ TotalPrice:{
 Margin:{
     type:Number,
     require:true,
-}
+},
+Company:{
+    type:String,
+    required:true
+},
 });
 
 

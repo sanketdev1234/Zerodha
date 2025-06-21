@@ -14,7 +14,6 @@ import {
 } from '@mui/material';
 import Draggable from 'react-draggable';
 import { deepPurple } from '@mui/material/colors';
-
 let addsellurl="http://localhost:8080/addsell";
 
 function PaperComponent(props) {
@@ -30,14 +29,15 @@ function PaperComponent(props) {
   );
 }
 
-export default function SellClick() {
+export default function SellClick({Company}) {
   const marginRef = useRef(Math.floor(Math.random() * 21) - 10); // random margin once
   const [open, setOpen] = React.useState(false);
   const [selldata,setselldata]=React.useState({
     Quantity:0,
     PricePerQuantity:0,
     TotalPrice:0,
-    Margin:0
+    Margin:0,
+    Company:Company
   });
 
   const handleClickOpen = () => {
@@ -65,6 +65,7 @@ return {...currdata , [event.target.name]:event.target.value,Margin: marginRef.c
     PricePerQuantity:selldata.PricePerQuantity,
     TotalPrice:total,
     Margin:selldata.Margin,
+    Company:Company
   }, {
   headers: {
     'Content-Type': 'application/json'
@@ -81,7 +82,8 @@ return {...currdata , [event.target.name]:event.target.value,Margin: marginRef.c
     Quantity:0,
     PricePerQuantity:0,
     TotalPrice:0,
-    Margin:0
+    Margin:0,
+    Company:Company
     })
   }
   return (

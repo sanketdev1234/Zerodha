@@ -45,8 +45,8 @@ function Watchlistitemdisplay({item, fun, onDelete}) {
             </div>
             {mouseenter ? (
                 <Box component="section" sx={{ p: 2, display: 'flex', gap: 2, justifyContent: 'end'}}>
-                    <BuyClick/>
-                    <SellClick/>
+                    <BuyClick Company={item.name}/>
+                    <SellClick Company={item.name}/>
                     <Box component="section" sx={{ color: "black"}}>
                         <FormatListBulletedIcon/>
                     </Box>
