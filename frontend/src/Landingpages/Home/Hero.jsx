@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function Hero() {
   return (
     <div className="container-fluid py-5" style={{ 
@@ -24,7 +25,7 @@ function Hero() {
               Advanced trading platform simulator with virtual portfolio management, 
               interactive charts, and risk-free learning environment.
             </h3>
-            <button type="button" className="btn btn-light btn-lg mt-4 px-5 py-3 fw-bold" 
+           <Link to='/signup'> <button type="button" className="btn btn-light btn-lg mt-4 px-5 py-3 fw-bold" 
                     style={{ 
                       fontSize: "1.2rem",
                       borderRadius: "50px",
@@ -33,6 +34,7 @@ function Hero() {
                     }}>
               Start Trading Simulation
             </button>
+            </Link>
           </div>
         </div>
       </div>

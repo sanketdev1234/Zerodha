@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const SignupForm = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -14,7 +15,7 @@ const SignupForm = () => {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [particles, setParticles] = useState([]);
-
+  const navigate = useNavigate();
   // Generate floating particles for background animation
   useEffect(() => {
     const generateParticles = () => {
@@ -65,7 +66,7 @@ const SignupForm = () => {
   };
 
   const validatePassword = (password) => {
-    return password.length >= 8 && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password);
+    return password.length >= 8 &&  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])([^\s]){8,}$/.test(password);
   };
 
   const validateForm = () => {
@@ -86,7 +87,7 @@ const SignupForm = () => {
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (!validatePassword(formData.password)) {
-      newErrors.password = 'Password must be at least 8 characters with uppercase, lowercase, and number';
+      newErrors.password = 'Password must be at least 8 characters with uppercase, lowercase, special character, and number';
     }
 
     setErrors(newErrors);
@@ -143,10 +144,14 @@ const SignupForm = () => {
     setFormData({ email: '', username: '', password: '' });
     setTouched({});
     setPasswordStrength(0);
-
     // Hide success message after 4 seconds
-    setTimeout(() => setShowSuccess(false), 4000);
+    setTimeout(() => {
+      setShowSuccess(false);
+      navigate('/login');
+    }, 4000);
+    
   };
+ 
 
   const getFieldClass = (fieldName) => {
     const baseClass = 'form-control';
@@ -171,7 +176,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="signup-container">
+    <div className="signup-container mt-5 pt-5">
       <style jsx>{`
         @import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css');
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -662,7 +667,7 @@ const SignupForm = () => {
                   <div>
                     <strong>🎉 Welcome aboard!</strong>
                     <br />
-                    <small>Your account has been created successfully. Get ready for an amazing journey!</small>
+                    <small>Your account has been created successfully.Now you can login to your account and Get ready for an amazing journey!</small>
                   </div>
                 </div>
               </div>
@@ -809,7 +814,7 @@ const SignupForm = () => {
 
                 <div className="footer-text">
                   <p className="text-muted mb-0">
-                    Already part of our community? <a href="#" className="text-decoration-none">Sign In Here</a>
+                    Already part of our community? <Link  to='/login' className="text-decoration-none">Sign In Here</Link>
                   </p>
                 </div>
               </div>

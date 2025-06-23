@@ -21,7 +21,7 @@ function Navbar(){
             <Link className="nav-link active fs-5 fw-medium" aria-current="page" to="/home">Home</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link fw-normal" to="/signup">Signup</Link>
+            <Link className="nav-link fw-normal" to="/signup">Register</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link fw-normal" to="/about">About</Link>

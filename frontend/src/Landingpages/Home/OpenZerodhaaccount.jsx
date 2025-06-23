@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function OpenSExchangeAccount (){
 return (
     <div className="container-fluid py-5" style={{ 
@@ -11,6 +12,7 @@ return (
         <h4 className="text-white-75 mb-4" style={{ fontSize: "1.3rem" }}>
 Advanced trading simulator with virtual portfolio management, interactive charts, and risk-free learning environment.
         </h4>
+        <Link to='/signup'> 
         <button type="button" className="btn btn-light btn-lg mt-4 px-5 py-3 fw-bold" 
                 style={{ 
                   fontSize: "1.2rem",
@@ -20,6 +22,7 @@ Advanced trading simulator with virtual portfolio management, interactive charts
                 }}>
             Start Free Simulation
         </button>
+        </Link>
         </div>
     </div>
     </div>
