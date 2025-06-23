@@ -55,8 +55,20 @@ function WatchList({ fun }) {
     };
 
     return (
-        <div className="mt-5 py-5 border border-2 px-3 d-flex flex-column gap-3" id="watchlist">
-            <select className="form-select form-select-lg mb-3" aria-label="Large select example">
+        <div className="mt-5 py-5 px-3 d-flex flex-column gap-3" id="watchlist" style={{ 
+          background: "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)",
+          color: "white",
+          borderRadius: "15px",
+          border: "1px solid rgba(255,255,255,0.2)"
+        }}>
+            <h4 className="text-white fw-bold text-center mb-3">S-Exchange Watchlist</h4>
+            
+            <select className="form-select form-select-lg mb-3" aria-label="Large select example" style={{ 
+              background: "rgba(255,255,255,0.1)", 
+              border: "1px solid rgba(255,255,255,0.2)", 
+              color: "white",
+              borderRadius: "10px"
+            }}>
                 <option value="nifty50" selected>NIFTY 50</option>
                 <option value="sensex">SENSEX</option>
                 <option value="niftymidcap100">NIFTY MIDCAP 100</option>
@@ -74,15 +86,47 @@ function WatchList({ fun }) {
                 <option value="nifty50tr1xinv">NIFTY50 TR 1X INV</option>
                 <option value="niftyit">NIFTY IT</option>
             </select>
+            
             <WatchTable watchlist={displayedWatchlist} fun={fun} onDelete={handleDelete} />
+            
             <div className="container">
                 <div className="row d-flex flex-row gap-2">
-                    <a href="#" className="col-1 text-center text-decoration-none" onClick={() => handleonclick(1)} style={{ borderTop: linkactive == 1 ? "2px solid orange" : "1px solid white" }}>1</a>
-                    <a href="#" className="col-1 text-center text-decoration-none" onClick={() => handleonclick(2)} style={{ borderTop: linkactive == 2 ? "2px solid orange" : "1px solid white" }}>2</a>
-                    <a href="#" className="col-1 text-center text-decoration-none" onClick={() => handleonclick(3)} style={{ borderTop: linkactive == 3 ? "2px solid orange" : "1px solid white" }}>3</a>
-                    <a href="#" className="col-1 text-center text-decoration-none" onClick={() => handleonclick(4)} style={{ borderTop: linkactive == 4 ? "2px solid orange" : "1px solid white" }}>4</a>
-                    <a href="#" className="col-1 text-center text-decoration-none" onClick={() => handleonclick(5)} style={{ borderTop: linkactive == 5 ? "2px solid orange" : "1px solid white" }}>5</a>
-                    <a href="#" className="col-1 text-center text-decoration-none" onClick={() => handleonclick(6)} style={{ borderTop: linkactive == 6 ? "2px solid orange" : "1px solid white" }}>6</a>
+                    <a href="#" className="col-1 text-center text-decoration-none text-white" onClick={() => handleonclick(1)} style={{ 
+                      borderTop: linkactive == 1 ? "3px solid #ffc107" : "1px solid rgba(255,255,255,0.3)",
+                      padding: "8px",
+                      borderRadius: "5px",
+                      background: linkactive == 1 ? "rgba(255,193,7,0.1)" : "transparent"
+                    }}>1</a>
+                    <a href="#" className="col-1 text-center text-decoration-none text-white" onClick={() => handleonclick(2)} style={{ 
+                      borderTop: linkactive == 2 ? "3px solid #ffc107" : "1px solid rgba(255,255,255,0.3)",
+                      padding: "8px",
+                      borderRadius: "5px",
+                      background: linkactive == 2 ? "rgba(255,193,7,0.1)" : "transparent"
+                    }}>2</a>
+                    <a href="#" className="col-1 text-center text-decoration-none text-white" onClick={() => handleonclick(3)} style={{ 
+                      borderTop: linkactive == 3 ? "3px solid #ffc107" : "1px solid rgba(255,255,255,0.3)",
+                      padding: "8px",
+                      borderRadius: "5px",
+                      background: linkactive == 3 ? "rgba(255,193,7,0.1)" : "transparent"
+                    }}>3</a>
+                    <a href="#" className="col-1 text-center text-decoration-none text-white" onClick={() => handleonclick(4)} style={{ 
+                      borderTop: linkactive == 4 ? "3px solid #ffc107" : "1px solid rgba(255,255,255,0.3)",
+                      padding: "8px",
+                      borderRadius: "5px",
+                      background: linkactive == 4 ? "rgba(255,193,7,0.1)" : "transparent"
+                    }}>4</a>
+                    <a href="#" className="col-1 text-center text-decoration-none text-white" onClick={() => handleonclick(5)} style={{ 
+                      borderTop: linkactive == 5 ? "3px solid #ffc107" : "1px solid rgba(255,255,255,0.3)",
+                      padding: "8px",
+                      borderRadius: "5px",
+                      background: linkactive == 5 ? "rgba(255,193,7,0.1)" : "transparent"
+                    }}>5</a>
+                    <a href="#" className="col-1 text-center text-decoration-none text-white" onClick={() => handleonclick(6)} style={{ 
+                      borderTop: linkactive == 6 ? "3px solid #ffc107" : "1px solid rgba(255,255,255,0.3)",
+                      padding: "8px",
+                      borderRadius: "5px",
+                      background: linkactive == 6 ? "rgba(255,193,7,0.1)" : "transparent"
+                    }}>6</a>
                 </div>
             </div>
         </div>

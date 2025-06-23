@@ -9,8 +9,8 @@ function Chargetypes(){
             alt="price"
             className="img-fluid"  style={{maxWidth:"300px"}}
           />
-          <p className="fw-medium fs-2">Free equity delivery</p> 
-          <p>All equity delivery investments (NSE, BSE), are absolutely free — ₹ 0 brokerage.</p>
+          <p className="fw-medium fs-2">Free trading simulation</p> 
+          <p>All trading simulation features are absolutely free — ₹ 0 charges for learning and practice.</p>
                 </div>
                 <div className="col-md-4 d-flex flex-column justify-content-center align-items-center">
       <img
@@ -18,8 +18,8 @@ function Chargetypes(){
             alt="price"
             className="img-fluid" style={{maxWidth:"300px"}}
           />
-          <p className="fw-medium fs-2">Intraday and F&O trades</p> 
-          <p>Flat ₹ 20 or 0.03% (whichever is lower) per executed order on intraday trades across equity, currency, and commodity trades. Flat ₹20 on all option trades.</p>
+          <p className="fw-medium fs-2">Advanced features</p> 
+          <p>Access to advanced charting tools, technical indicators, and strategy building features at no cost.</p>
                 </div>
                 <div className="col-md-3 d-flex flex-column justify-content-center align-items-center">
           <img
@@ -27,8 +27,8 @@ function Chargetypes(){
             alt="price"
             className="img-fluid"  style={{maxWidth:"300px"}}
           />
-          <p className="fw-medium fs-2">Free direct MF</p> 
-          <p>All direct mutual fund investments are absolutely free — ₹ 0 commissions & DP charges.</p>
+          <p className="fw-medium fs-2">Free education</p> 
+          <p>All educational content, tutorials, and learning modules are absolutely free — ₹ 0 charges.</p>
                 </div>
             </div>
         </div>

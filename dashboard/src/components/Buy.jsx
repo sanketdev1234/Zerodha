@@ -12,37 +12,54 @@ function Buy() {
           }generatedata()
       } ,[])
     return (
-        <div className="container text-center mt-5 py-5">
-            <h1 className="fw-normal">Buys ({buy.length}) </h1>
-            <div className="row">
-              
-        <table className="table table-striped text-start table-hover">
-        <thead>
-          <tr>
-            <th>Quantity</th>
-            <th>Price Per Quantity</th>
-            <th>Total</th>
-            <th>Company</th>
-          </tr>
-        </thead>
-        <tbody>
-
-        {buy.map((stock ,index) => {
-            return (
-              <tr key={stock._id}>
-              
-                <td>{stock.Quantity}</td>
-                <td>{stock.PricePerQuantity}</td>
-                <td>{stock.TotalPrice}</td>
-                <td>{stock.Company}</td>
-              </tr>
-            );
-          })}
-
-        </tbody>
-      </table>
-
-            </div>  
+        <div className="container-fluid py-5" style={{ 
+          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          color: "white",
+          minHeight: "100vh"
+        }}>
+            <div className="container">
+                <h2 className="text-white fw-bold text-center mb-5">S-Exchange Buy Orders</h2>
+                <h4 className="text-white-75 text-center mb-4">Total Buy Orders: {buy.length}</h4>
+                
+                <div className="row">
+                    <div className="col-12">
+                        <div className="table-responsive" style={{ 
+                          background: "rgba(255,255,255,0.1)", 
+                          backdropFilter: "blur(10px)",
+                          borderRadius: "15px",
+                          border: "1px solid rgba(255,255,255,0.2)",
+                          overflow: "hidden"
+                        }}>
+                            <table className="table table-hover mb-0" style={{ color: "white" }}>
+                                <thead style={{ background: "rgba(255,255,255,0.1)" }}>
+                                    <tr>
+                                        <th className="text-white border-0" style={{ color: "white !important" }}>Quantity</th>
+                                        <th className="text-white border-0" style={{ color: "white !important" }}>Price Per Quantity</th>
+                                        <th className="text-white border-0" style={{ color: "white !important" }}>Total</th>
+                                        <th className="text-white border-0" style={{ color: "white !important" }}>Company</th>
+                                    </tr>
+                                </thead>
+                                <tbody style={{ color: "white" }}>
+                                    {buy.map((stock ,index) => {
+                                        return (
+                                            <tr key={stock._id} style={{ 
+                                              borderBottom: "1px solid rgba(255,255,255,0.1)",
+                                              transition: "all 0.3s ease",
+                                              color: "white"
+                                            }}>
+                                                <td style={{ color: "white !important" }}>{stock.Quantity}</td>
+                                                <td style={{ color: "white !important" }}>₹{stock.PricePerQuantity}</td>
+                                                <td style={{ color: "white !important", fontWeight: "bold" }}>₹{stock.TotalPrice}</td>
+                                                <td style={{ color: "white !important", fontWeight: "bold" }}>{stock.Company}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>  
+            </div>
         </div>
     );
 }

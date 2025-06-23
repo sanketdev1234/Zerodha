@@ -30,33 +30,50 @@ function Watchlistitemdisplay({item, fun, onDelete}) {
     };
 
     return (
-        <div key={item._id} className="container" onMouseEnter={handlemousein} onMouseLeave={handlemouseout} onClick={() => fun(item)}
+        <div key={item._id} className="container mb-2" onMouseEnter={handlemousein} onMouseLeave={handlemouseout} onClick={() => fun(item)}
             style={{
-                backgroundColor: mouseenter ? "rgba(128, 128, 128,0.3)" : "",
-                color: mouseenter ? "white" : "",
-                fontWeight: mouseenter ? "500" : "",
-                transition: "background-color 0.3s ease-in-out",
+                backgroundColor: mouseenter ? "rgba(255, 255, 255, 0.15)" : "rgba(255, 255, 255, 0.05)",
+                color: "white",
+                fontWeight: mouseenter ? "600" : "400",
+                transition: "all 0.3s ease-in-out",
+                borderRadius: "10px",
+                padding: "12px",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                cursor: "pointer"
             }}>
-            <div className="row">
-                <p className="text-start col-3">{item.name}</p>
-                <p className="text-start col-3">{item.price}</p>
-                <p className="text-start col-3" style={{color: item.isDown ? "red" : "green"}}>{item.percent}</p>
-                <p className="text-start col-3">{item.isDown ? <ArrowDownwardIcon sx={{ color: pink[500] }}/> : <ArrowUpwardIcon color="success"/>}</p>
+            <div className="row align-items-center">
+                <p className="text-start col-3 mb-0 fw-bold">{item.name}</p>
+                <p className="text-start col-3 mb-0">₹{item.price}</p>
+                <p className="text-start col-3 mb-0 fw-bold" style={{color: item.isDown ? "#ff6b6b" : "#51cf66"}}>{item.percent}</p>
+                <p className="text-start col-3 mb-0">
+                    {item.isDown ? 
+                        <ArrowDownwardIcon sx={{ color: "#ff6b6b" }}/> : 
+                        <ArrowUpwardIcon sx={{ color: "#51cf66" }}/>
+                    }
+                </p>
             </div>
             {mouseenter ? (
-                <Box component="section" sx={{ p: 2, display: 'flex', gap: 2, justifyContent: 'end'}}>
+                <Box component="section" sx={{ 
+                    p: 2, 
+                    display: 'flex', 
+                    gap: 2, 
+                    justifyContent: 'end',
+                    mt: 1,
+                    pt: 1,
+                    borderTop: "1px solid rgba(255,255,255,0.2)"
+                }}>
                     <BuyClick Company={item.name}/>
                     <SellClick Company={item.name}/>
-                    <Box component="section" sx={{ color: "black"}}>
+                    <Box component="section" sx={{ color: "white", cursor: "pointer"}}>
                         <FormatListBulletedIcon/>
                     </Box>
-                    <Box component="section" sx={{ color: "black"}}>
+                    <Box component="section" sx={{ color: "white", cursor: "pointer"}}>
                         <MoreHorizIcon/>
                     </Box>
-                    <Box component="section" sx={{ color: "black"}}>
+                    <Box component="section" sx={{ color: "white", cursor: "pointer"}}>
                         <BarChartIcon/>
                     </Box>
-                    <Box component="section" sx={{ color: "black", cursor: "pointer"}} onClick={handleDelete}>
+                    <Box component="section" sx={{ color: "#ff6b6b", cursor: "pointer"}} onClick={handleDelete}>
                         <DeleteIcon/>
                     </Box>
                 </Box>

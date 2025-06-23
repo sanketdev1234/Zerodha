@@ -20,30 +20,30 @@ function Ticket() {
                     <Link to="#" className='text-decoration-none'>Glossary</Link>
                 </div>
 
-                {/* Your Zerodha Account */}
+                {/* Your S-Exchange Account */}
                 <div className="col-md-3 d-flex flex-column justify-content-evenly align-items-start  mt-5 gap-3">
                     <Link to="#" className='text-decoration-none text-black'>
                         <i className="fa-solid fa-user-plus me-2"></i>
-                        Your Zerodha Account
+                        Your S-Exchange Account
                     </Link>
                     <Link to="#" className='text-decoration-none'>Your Profile</Link>
-                    <Link to="#" className='text-decoration-none'>Account modification</Link>
-                    <Link to="#" className='text-decoration-none'>Client Master Report (CMR) and Depository Participant (DP)</Link>
-                    <Link to="#" className='text-decoration-none'>Nomination</Link>
-                    <Link to="#" className='text-decoration-none'>Transfer and conversion of securities</Link>
+                    <Link to="#" className='text-decoration-none'>Account settings</Link>
+                    <Link to="#" className='text-decoration-none'>Virtual portfolio management</Link>
+                    <Link to="#" className='text-decoration-none'>Learning progress</Link>
+                    <Link to="#" className='text-decoration-none'>Strategy preferences</Link>
                 </div>
 
-                {/* Kite */}
+                {/* Trading Simulator */}
                 <div className="col-md-3 d-flex flex-column justify-content-evenly align-items-start  mt-5 gap-3">
                     <Link to="#" className='text-decoration-none text-black'>
                         <i className="fa-solid fa-chart-simple me-2"></i>
-                        Kite
+                        Trading Simulator
                     </Link>
-                    <Link to="#" className='text-decoration-none'>IPO</Link>
+                    <Link to="#" className='text-decoration-none'>Getting started</Link>
                     <Link to="#" className='text-decoration-none'>Trading FAQs</Link>
-                    <Link to="#" className='text-decoration-none'>Margin Trading Facility (MTF) and Margins</Link>
+                    <Link to="#" className='text-decoration-none'>Virtual portfolio setup</Link>
                     <Link to="#" className='text-decoration-none'>Charts and orders</Link>
-                    <Link to="#" className='text-decoration-none'>Alerts and Nudges</Link>
+                    <Link to="#" className='text-decoration-none'>Alerts and notifications</Link>
                     <Link to="#" className='text-decoration-none'>General</Link>
                 </div>
 

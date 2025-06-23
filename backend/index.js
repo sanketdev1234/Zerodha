@@ -39,7 +39,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 const corsoption={
-  origin:"http://localhost:5731",
+  origin:"http://localhost:5173",
   credentials:true,
   methods:["GET","POST","PUT","DELETE","PATCH"],
 }
