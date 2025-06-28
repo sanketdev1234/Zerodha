@@ -1,5 +1,14 @@
 import { Link } from 'react-router-dom';
+import {useState,useEffect} from 'react';
+import user_present from '../helper';
 function Navbar(){
+    const [isLoggedIn, setIsLoggedIn] = useState({});
+    useEffect(()=>{
+        user_present().then((res)=>{
+          console.log(res);
+            setIsLoggedIn(res);
+        })
+    },[])
     return (
     <>
     <nav className="navbar bg-body-tertiary fixed-top border border-2">
@@ -19,6 +28,9 @@ function Navbar(){
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li className="nav-item">
             <Link className="nav-link active fs-5 fw-medium" aria-current="page" to="/home">Home</Link>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link fw-normal" href={isLoggedIn.username ? "http://localhost:3001" : "/login"} target="_blank" rel="noopener noreferrer">Dashboard</a>
           </li>
           <li className="nav-item">
             <Link className="nav-link fw-normal" to="/signup">Register</Link>

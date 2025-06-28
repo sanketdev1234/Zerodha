@@ -1,15 +1,20 @@
 import { useState,useEffect } from "react";
+import axios from "axios";
 const url="http://localhost:8080/getposition"
 
 function Positions() {
     let [position,setposition]=useState([]);
         useEffect(()=>{
           async function generatedata(){
-              let getdata=await fetch(url);
-          let jsongetdata=await getdata.json();
-          console.log("tha data is",[jsongetdata]);
-      setposition([jsongetdata][0].position);
-          }generatedata()
+              try {
+                const response = await axios.get(url, { withCredentials: true });
+                console.log("tha data is", response.data);
+                setposition(response.data.position);
+              } catch (error) {
+                console.error("Error fetching positions:", error);
+              }
+          }
+          generatedata()
       } ,[])
     return (
         <div className="container-fluid py-5" style={{ 

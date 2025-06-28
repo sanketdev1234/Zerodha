@@ -51,7 +51,7 @@ function Dashboard() {
   }
 
   return (
-    <div className="d-flex flex-md-row gap-md-3 gap-3 flex-column">
+    <div className="d-flex flex-md-row gap-md-3 gap-3 flex-column mt-5">
       <WatchList fun={modifyarr} />
       <div id="dashboardright">
         <AnimatedRoutes arr={arr} />

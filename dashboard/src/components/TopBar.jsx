@@ -1,12 +1,29 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState ,useEffect} from 'react';
 import { Avatar, Box } from "@mui/material";
-import Stack from '@mui/material/Stack';
 import { deepOrange} from '@mui/material/colors';
+import user_present from './Helper';
+let logouturl="http://localhost:8080/auth/logout";
 function TopBar(){
   let [linkactive , setlinkactive]=useState("Dashboard");
   let [isprofileclicked , setisprofileclicked]=useState(false);
+  let [isLoggedIn, setIsLoggedIn] = useState({});
+  let [todisplay,settodisplay]=useState("");
+  useEffect(() => {
+    user_present().then((res) => {
+      console.log("Response from user_present:", res);
+      console.log(res.username);
+      console.log(typeof (res.username));
+      console.log(res.username.charAt(0));
+      setIsLoggedIn(res);
+      settodisplay(res.username.charAt(0))
+    });
+  }, []);
   
+  let handlelogout=async()=>{
+    await axios.get(logouturl, { withCredentials: true })
+    window.location.href = "http://localhost:3000";
+  }
   let handlelinkclick=(val)=>{
   setlinkactive(val);
   }
@@ -18,6 +35,9 @@ function TopBar(){
     console.log("sanket" ,event.target.name);
     console.log(event.target.value);
     console.log(event);
+    console.log(isLoggedIn.username)
+    console.log("the type is",typeof(isLoggedIn.username))
+    console.log("first character::::::::::::" , isLoggedIn.username[0])
     setlinkactive(event.target.value);
     }
 
@@ -53,14 +73,21 @@ let handlesubmit=(event)=>{
 >
   <Box display="flex" alignItems="center" gap={1}>
     
-    <Avatar sx={{ bgcolor: deepOrange[500] }}>SZ</Avatar>
-    <span className="text-white">S-Exchange User</span>
+    <Avatar sx={{ bgcolor: deepOrange[500] }}>{todisplay}</Avatar>
+    <span className="text-white">{isLoggedIn.username} </span>
+
   </Box>
+  <p onClick={handlelogout}>{todisplay?"Logout":""}</p>
 </Link>
         <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div className="offcanvas-body">
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li className="nav-item">
+            <a className="nav-link fw-normal" href="http://localhost:3000" target="_blank" rel="noopener noreferrer" style={{ color: "white" }}>
+              🏠 Home
+            </a>
+          </li>
           <li className="nav-item">
             <Link className="nav-link active fs-5 fw-medium" aria-current="page" to="/"
             onClick={()=>handlelinkclick("Dashboard")}  

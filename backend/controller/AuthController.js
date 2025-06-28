@@ -1,8 +1,8 @@
 const User=require("../model/UserSchema.js");
 
 
-module.exports.renderRegisterForm=(req , res)=>{
-    res.send("registration form");
+module.exports.renderloginfail=(req , res)=>{
+    res.status(401).send("login failed! please try again enter correct credentials");
     };
 
     module.exports.renderLoginForm=(req , res)=>{
@@ -37,7 +37,8 @@ module.exports.renderRegisterForm=(req , res)=>{
         catch(error){
             console.log(error);
             // res.redirect("/user/registerform");
-            res.send("registration failed! please try again");
+            
+            res.send("registration failed! please try again : A user with the given username is already registered");
         }
         }
 
@@ -85,12 +86,12 @@ module.exports.renderRegisterForm=(req , res)=>{
     module.exports.authstatus=(req,res,next)=>{
             if(req.user)
 {
-    res.send("user is logged in");
+    res.send(req.user);
     console.log(req.user) 
 }
 else{
-    res.send("user is not logged in");
+    res.send(req.user);
     console.log(req.user) 
 }
-next();
+
         }

@@ -1,14 +1,19 @@
 import { useState,useEffect } from "react";
+import axios from "axios";
 const url="http://localhost:8080/getorder"
 function Orders() {
     let [order,setorder]=useState([]);
         useEffect(()=>{
           async function generatedata(){
-              let getdata=await fetch(url);
-          let jsongetdata=await getdata.json();
-          console.log("tha data is",[jsongetdata]);
-      setorder([jsongetdata][0].order);
-          }generatedata()
+              try {
+                const response = await axios.get(url, { withCredentials: true });
+                console.log("tha data is", response.data);
+                setorder(response.data.order);
+              } catch (error) {
+                console.error("Error fetching orders:", error);
+              }
+          }
+          generatedata()
       } ,[])
     return (
         <div className="container-fluid py-5" style={{ 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 import WatchTable from "./WatchTable.jsx";
 const url = "http://localhost:8080/getwatchlist";
 
@@ -11,9 +12,8 @@ function WatchList({ fun }) {
     useEffect(() => {
         async function fetchData() {
             try {
-                const getdata = await fetch(url);
-                const jsongetdata = await getdata.json();
-                const initialWatchlist = jsongetdata.watchlist || [];
+                const response = await axios.get(url, { withCredentials: true });
+                const initialWatchlist = response.data.watchlist || [];
                 setwatchlist(initialWatchlist);
                 setDisplayedWatchlist(initialWatchlist.slice(0, 9));
             } catch (error) {
@@ -29,11 +29,11 @@ function WatchList({ fun }) {
     
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:8080/deletewatchlist/${id}`, {
-                method: 'DELETE'
+            const response = await axios.delete(`http://localhost:8080/deletewatchlist/${id}`, {
+                withCredentials: true
             });
             if (response) {
-                console.log(response.status , response.statusText);
+                console.log(response.status, response.statusText);
                 // Update both watchlist states after successful deletion
                 const updatedWatchlist = watchlist.filter(item => item._id !== id);
                 setwatchlist(updatedWatchlist);

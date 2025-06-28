@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+const loginurl="http://localhost:8080/auth/login";
+const mfaSetupUrl="http://localhost:8080/mfa/setup2fa";
+const mfaVerifyUrl="http://localhost:8080/mfa/verify2fa";
+const mfaResetUrl="http://localhost:8080/mfa/reset2fa";
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -17,7 +23,10 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [particles, setParticles] = useState([]);
-
+  const [qrurl,setqrurl]=useState("");
+  const [otpInput, setOtpInput] = useState("");
+  const [showOtpInput, setShowOtpInput] = useState(false);
+  const navigate = useNavigate(); 
   // Generate floating particles for background animation
   useEffect(() => {
     const generateParticles = () => {
@@ -131,15 +140,27 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
     await new Promise(resolve => setTimeout(resolve, 2000));
-    setDisable2f(false);
+   
     setIsSubmitting(false);
-    setShowSuccess(true);
-    setFormData({ username: '', password: '' });
-    setTouched({});
-    setPasswordStrength(0);
-
-    // Hide success message after 4 seconds
-    setTimeout(() => setShowSuccess(false), 4000);
+    await axios.post(loginurl,formData, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    }).then((data)=>{
+      console.log(data);
+      setDisable2f(false);
+      setShowSuccess(true);
+      setFormData({ username: '', password: '' });
+      setTouched({});
+      setPasswordStrength(0);
+      setTimeout(() => {setShowSuccess(false)
+        }, 4000);
+    
+    }).catch((err)=>{
+      console.log(err);
+      navigate('/pagenotfound');
+    });
   };
 
   const getFieldClass = (fieldName) => {
@@ -167,12 +188,71 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
     e.preventDefault();
     setIsSubmittingfor2f(true);
     await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    if(YES2FA){
+    await axios.post(mfaResetUrl, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      }).then((data)=>{
+        console.log(data)
+        
+      }
+    ).catch((err)=>console.log(err));
     setIsSubmittingfor2f(false);
+    }
+    else {
+      await axios.post(mfaSetupUrl, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      }).then((response)=>{
+        console.log(response);
+        setqrurl(response.data.qrCodeUrl);
+        setShowOtpInput(true);
+      }).catch((err)=>console.log(err));
+
+    }
     setYES2FA(!YES2FA);
-    setShowSuccessfor2f(true);
-    setTimeout(() => setShowSuccessfor2f(false), 4000);
+    setIsSubmittingfor2f(false);
   };
 
+  //////////////////////////////////////////////////////////////////////
+  const handleverifyfor2f=async(e)=>{
+    e.preventDefault();
+    console.log(otpInput);
+    console.log(typeof(otpInput));
+    if (!otpInput || otpInput.length !== 6) {
+      alert("Please enter a valid 6-digit OTP");
+      return;
+    }
+
+    try {
+      console.log({token:otpInput});
+      const response = await axios.post(mfaVerifyUrl, {
+        token: otpInput
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      });
+      
+      console.log(response);
+      setYES2FA(true);
+      setShowSuccessfor2f(true);
+      setShowOtpInput(false);
+      setOtpInput("");
+      setqrurl("");
+      setTimeout(() => setShowSuccessfor2f(false), 4000);
+    } catch (err) {
+      console.log(err);
+      alert("Invalid OTP. Please try again.");
+    }
+  }
+//////////////////////////////////////////////////////////////////////////
   return (
     <div className="signup-container mt-5 pt-5">
       <style jsx>{`
@@ -185,7 +265,7 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
 
         .signup-container {
           min-height: 100vh;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+          background: linear-gradient(135deg,rgb(184, 186, 192) 0%,rgb(50, 176, 249) 25%,rgb(25, 40, 154) 50%,rgb(24, 25, 27) 75%, #4facfe 100%);
           background-size: 400% 400%;
           animation: gradientShift 15s ease infinite;
           display: flex;
@@ -599,42 +679,102 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
           transform: translateY(-1px);
         }
 
+        @media (max-width: 992px) {
+          .signup-card {
+            max-width: 90vw;
+            padding: 0 0.5rem;
+          }
+          .card-header {
+            padding: 2rem 1rem 1.5rem;
+          }
+          .card-body {
+            padding: 0 1rem 1.5rem;
+          }
+        }
         @media (max-width: 768px) {
           .signup-container {
-            padding: 1rem;
+            padding: 0.5rem;
+            min-height: 100vh;
           }
-          
+          .signup-card {
+            max-width: 98vw;
+            border-radius: 16px;
+            margin: 0 0.2rem;
+          }
           .card-header {
-            padding: 2rem 1.5rem 1.5rem;
+            padding: 1.5rem 0.5rem 1rem;
           }
-          
-          .card-body {
-            padding: 0 1.5rem 2rem;
-          }
-          
           .card-title {
-            font-size: 2rem;
+            font-size: 1.5rem;
+          }
+          .card-body {
+            padding: 0 0.5rem 1rem;
+          }
+          .form-group {
+            margin-bottom: 1.2rem;
+          }
+          .btn-primary {
+            padding: 1rem 1rem;
+            font-size: 1rem;
+          }
+          .qr-section-responsive {
+            order: 2;
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+          }
+          .signup-card {
+            order: 1;
           }
         }
-
-        .input-effect {
-          position: relative;
-          overflow: hidden;
+        @media (min-width: 769px) {
+          .qr-section-responsive {
+            margin-top: 0;
+            display: flex;
+            justify-content: center;
+          }
         }
-
-        .input-effect::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: linear-gradient(90deg, #667eea, #764ba2);
-          transition: width 0.3s ease;
+        @media (max-width: 480px) {
+          .signup-container {
+            padding: 0.2rem;
+          }
+          .signup-card {
+            max-width: 100vw;
+            border-radius: 10px;
+            margin: 0;
+          }
+          .card-header {
+            padding: 1rem 0.2rem 0.5rem;
+          }
+          .card-title {
+            font-size: 1.1rem;
+          }
+          .card-body {
+            padding: 0 0.2rem 0.5rem;
+          }
+          .form-label {
+            font-size: 0.85rem;
+          }
+          .form-control {
+            font-size: 0.95rem;
+            padding: 0.9rem 2.5rem 0.9rem 0.9rem;
+          }
+          .btn-primary {
+            padding: 0.8rem 0.5rem;
+            font-size: 0.95rem;
+          }
+          .password-strength {
+            padding: 0.5rem;
+          }
+          .footer-text {
+            font-size: 0.9rem;
+            padding-top: 1rem;
+          }
         }
-
-        .input-effect:focus-within::after {
-          width: 100%;
+        html, body, .signup-container {
+          max-width: 100vw;
+          overflow-x: hidden;
         }
       `}</style>
 
@@ -794,6 +934,8 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
                       </>
                     )}
                   </button>
+                </div> 
+                {/* mfa button */}
                     <br/>
                     <br/>
                     <button
@@ -813,9 +955,62 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
                       </>
                     )}
                   </button>
-
-                </div>
-
+                    <br/>
+                    <br/>
+                  {/* OTP input section will handle verification */}
+                  {showOtpInput && (
+                    <div className="form-group">
+                      <label htmlFor="otp" className="form-label">Enter 6-digit OTP</label>
+                      <div className="input-effect">
+                        <input
+                          type="text"
+                          id="otp"
+                          name="otp"
+                          className="form-control"
+                          value={otpInput}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(/[^0-9]/g, '');
+                            setOtpInput(value);
+                          }}
+                          placeholder="Enter 6-digit OTP from your authenticator app"
+                          maxLength={6}
+                          pattern="[0-9]{6}"
+                          required
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter' && otpInput.length === 6) {
+                              handleverifyfor2f(e);
+                            }
+                          }}
+                        />
+                        <div className="field-icon">
+                          <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                          </svg>
+                        </div>
+                      </div>
+                      <div className="d-flex gap-2 mt-3">
+                        <button
+                          type="button"
+                          className="btn btn-outline-secondary flex-fill"
+                          onClick={() => {
+                            setShowOtpInput(false);
+                            setOtpInput("");
+                            setqrurl("");
+                          }}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-primary flex-fill"
+                          onClick={handleverifyfor2f}
+                          disabled={otpInput.length !== 6}
+                        >
+                          Verify OTP
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 <div className="footer-text">
                   <p className="text-muted mb-0">
                     New to our community? <Link to='/signup' className="text-decoration-none">Sign up here</Link>
@@ -823,6 +1018,26 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
                 </div>
               </div>
             </div>
+            {/* QR code wrapper for responsive placement */}
+            {qrurl ?
+              <div className="qr-section-responsive">
+                <div className="text-center mt-4 p-4" style={{
+                  background: "rgba(255,255,255,0.1)",
+                  borderRadius: "15px",
+                  border: "1px solid rgba(255,255,255,0.2)"
+                }}>
+                  <h5 className="text-white mb-3">🔐 Setup Two-Factor Authentication</h5>
+                  <p className="text-white-75 mb-3">Scan this QR code with your authenticator app (Google Authenticator, Authy, etc.)</p>
+                  <img
+                    src={qrurl}
+                    alt="QR Code for 2FA Setup"
+                    className="img-fluid mb-3"
+                    style={{ maxWidth: "200px", borderRadius: "10px" }}
+                  />
+                  <p className="text-white-75 small">After scanning, enter the 6-digit code from your app above</p>
+                </div>
+              </div>
+            : ""}
           </div>
         </div>
       </div>

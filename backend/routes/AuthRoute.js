@@ -7,12 +7,12 @@ const wrapAsync=require("../Utilities/AsyncWrap.js");
 const MfaController=require("../controller/MfaController.js");
 const middlewarefor2fs=require("../middleware/authmiddleware.js").middlewarefor2fs;
 
-router.get("/registerform",authController.renderRegisterForm);
-router.get("/loginform",authController.renderLoginForm);
+router.get("/loginfail",authController.renderloginfail);
+// router.get("/loginform",authController.renderLoginForm);
 router.post("/register",authController.register);
 
 router.post("/login" , saveredirecturl,passport.authenticate("local" , {
-    failureRedirect:"/register", 
+    failureRedirect:"/auth/loginfail", 
     }) , wrapAsync(authController.login)); 
 
 router.get("/logout",authController.logout);

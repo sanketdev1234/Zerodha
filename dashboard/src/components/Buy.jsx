@@ -1,18 +1,23 @@
 import { useState,useEffect } from "react";
+import axios from "axios";
 const url="http://localhost:8080/getbuy"
 
 function Buy() {
     let [buy,setbuy]=useState([]);
         useEffect(()=>{
           async function generatedata(){
-              let getdata=await fetch(url);
-          let jsongetdata=await getdata.json();
-          console.log("tha data is",[jsongetdata]);
-      setbuy([jsongetdata][0].buy);
-          }generatedata()
+              try {
+                const response = await axios.get(url, { withCredentials: true });
+                console.log("tha data is", response.data);
+                setbuy(response.data.buy);
+              } catch (error) {
+                console.error("Error fetching buy orders:", error);
+              }
+          }
+          generatedata()
       } ,[])
     return (
-        <div className="container-fluid py-5" style={{ 
+        <div className="container-fluid py-5 mt-5 " style={{ 
           background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
           color: "white",
           minHeight: "100vh"

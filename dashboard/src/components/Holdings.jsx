@@ -1,15 +1,20 @@
 import { useState,useEffect } from "react";
+import axios from "axios";
 const url="http://localhost:8080/getholding"
 
 function Holdings() {
     let [holding,setholding]=useState([]);
         useEffect(()=>{
           async function generatedata(){
-              let getdata=await fetch(url);
-          let jsongetdata=await getdata.json();
-          console.log("tha data is",[jsongetdata]);
-      setholding([jsongetdata][0].holding);
-          }generatedata()
+              try {
+                const response = await axios.get(url, { withCredentials: true });
+                console.log("tha data is", response.data);
+                setholding(response.data.holding);
+              } catch (error) {
+                console.error("Error fetching holdings:", error);
+              }
+          }
+          generatedata()
       } ,[])
     return (
         <div className="container-fluid py-5" style={{ 

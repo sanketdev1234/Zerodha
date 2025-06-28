@@ -1,15 +1,20 @@
 import { useState,useEffect } from "react";
+import axios from "axios";
 const url="http://localhost:8080/getsell"
 
 function Sell() {
     let [sell,setsell]=useState([]);
         useEffect(()=>{
           async function generatedata(){
-              let getdata=await fetch(url);
-          let jsongetdata=await getdata.json();
-          console.log("tha data is",[jsongetdata]);
-      setsell([jsongetdata][0].sell);
-          }generatedata()
+              try {
+                const response = await axios.get(url, { withCredentials: true });
+                console.log("tha data is", response.data);
+                setsell(response.data.sell);
+              } catch (error) {
+                console.error("Error fetching sell orders:", error);
+              }
+          }
+          generatedata()
       } ,[])
     return (
         <div className="container-fluid py-5" style={{ 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+const signupurl="http://localhost:8080/auth/register";
 const SignupForm = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -129,7 +131,7 @@ const SignupForm = () => {
       username: true,
       password: true
     });
-
+    
     if (!validateForm()) {
       return;
     }
@@ -140,16 +142,28 @@ const SignupForm = () => {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     setIsSubmitting(false);
-    setShowSuccess(true);
-    setFormData({ email: '', username: '', password: '' });
-    setTouched({});
-    setPasswordStrength(0);
-    // Hide success message after 4 seconds
-    setTimeout(() => {
-      setShowSuccess(false);
-      navigate('/login');
-    }, 4000);
-    
+
+    //add the user data to the database
+    await axios.post(signupurl,formData, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    }).then((data)=>{
+      console.log(data);
+      setShowSuccess(true);
+      setFormData({ email: '', username: '', password: '' });
+      setTouched({});
+      setPasswordStrength(0);
+      // Hide success message after 4 seconds
+      setTimeout(() => {
+        setShowSuccess(false);
+        navigate('/login');
+      }, 4000);
+    }).catch((err)=>{
+      console.log(err);
+      navigate('/pagenotfound');
+    });
   };
  
 
@@ -187,7 +201,7 @@ const SignupForm = () => {
 
         .signup-container {
           min-height: 100vh;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+          background: linear-gradient(135deg,rgb(184, 186, 192) 0%,rgb(50, 176, 249) 25%,rgb(25, 40, 154) 50%,rgb(24, 25, 27) 75%, #4facfe 100%);
           background-size: 400% 400%;
           animation: gradientShift 15s ease infinite;
           display: flex;

@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter,Routes,Route} from "react-router-dom";
+import axios from 'axios';
 import Homepagemain from "./Landingpages/Home/Homepagemain";
 import AboutMain from "./Landingpages/About/AboutMain";
 import PricingMain from "./Landingpages/Pricings/PricingMain";
@@ -13,6 +14,10 @@ import { useLocation } from "react-router-dom";
 import './index.css'
 import SignupHero from './Landingpages/Signup/SignupHero';
 import LoginHero from './Landingpages/Signup/LoginHero';
+
+// Configure axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8080';
 
 function AnimatedRoutes() {
   const location = useLocation();
