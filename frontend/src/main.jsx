@@ -1,9 +1,9 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter,Routes,Route} from "react-router-dom";
+import axios from 'axios';
 import Homepagemain from "./Landingpages/Home/Homepagemain";
 import AboutMain from "./Landingpages/About/AboutMain";
 import PricingMain from "./Landingpages/Pricings/PricingMain";
-import SignupMain from "./Landingpages/Signup/SignupMain";
 import ProductMain from "./Landingpages/Products/ProductMain";
 import SupportMain from "./Landingpages/Support/SupportMain";
 import Navbar from './Landingpages/Navbar';
@@ -12,6 +12,12 @@ import NotFound from './Landingpages/NotFound';
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import './index.css'
+import SignupHero from './Landingpages/Signup/SignupHero';
+import LoginHero from './Landingpages/Signup/LoginHero';
+
+// Configure axios defaults
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8080';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -20,7 +26,8 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path='/' element={<PageWrapper><Homepagemain/></PageWrapper>} />
         <Route path='/home' element={<PageWrapper><Homepagemain/></PageWrapper>} />
-        <Route path='/signup' element={<PageWrapper><SignupMain/></PageWrapper>} />
+        <Route path='/signup' element={<PageWrapper><SignupHero/></PageWrapper>} />
+        <Route path='/login' element={<PageWrapper><LoginHero/></PageWrapper>} />
         <Route path='/about' element={<PageWrapper><AboutMain/></PageWrapper>} />
         <Route path='/product' element={<PageWrapper><ProductMain/></PageWrapper>} />
         <Route path='/support' element={<PageWrapper><SupportMain/></PageWrapper>} />

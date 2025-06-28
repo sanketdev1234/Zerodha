@@ -29,9 +29,13 @@ module.exports.setup2fa = async (req, res) => {
 
 module.exports.verify2fa = async (req, res) => {
     try {
-        const { token } = req.body;
+        console.log(req.user);
+        const  {token}  = req.body;
         const user = await User.findById(req.user._id);
-
+        console.log(user);
+        console.log(user.twoFactorSecret);
+        console.log(token);
+        console.log(typeof(token));
         if (!user || !user.twoFactorSecret) {
             return res.status(400).json({ status: 'error', message: '2FA not set up for this user.' });
         }
@@ -41,7 +45,7 @@ module.exports.verify2fa = async (req, res) => {
             encoding: 'base32',
             token: token,
         });
-
+        console.log(verified)
         if (verified) {
             await User.findByIdAndUpdate(req.user._id, { ifMfaActive: true });
             

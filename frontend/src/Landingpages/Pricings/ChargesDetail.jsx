@@ -1,7 +1,7 @@
 function ChargeDetail(){
     return (
  <div className="container my-5">
-      <h3>Charges for account opening</h3>
+      <h3>Charges for account setup</h3>
       <table className="table table-striped text-start table-hover">
         <thead>
           <tr>
@@ -11,48 +11,48 @@ function ChargeDetail(){
         </thead>
         <tbody>
           <tr>
-            <td>Online account</td>
+            <td>Simulation account</td>
             <td><span className="badge bg-success">FREE</span></td>
           </tr>
           <tr>
-            <td>Offline account</td>
+            <td>Learning modules</td>
             <td><span className="badge bg-success">FREE</span></td>
           </tr>
           <tr>
-            <td>NRI account (offline only)</td>
-            <td>₹ 500</td>
+            <td>Advanced features</td>
+            <td><span className="badge bg-success">FREE</span></td>
           </tr>
           <tr>
-            <td>Partnership, LLP, HUF, or Corporate accounts (offline only)</td>
-            <td>₹ 500</td>
+            <td>Strategy builder</td>
+            <td><span className="badge bg-success">FREE</span></td>
           </tr>
         </tbody>
       </table>
 
-      <h3 className="mt-5">Charges for optional value added services</h3>
+      <h3 className="mt-5">Premium features (coming soon)</h3>
       <table className="table table-striped  text-start table-hover">
         <thead>
           <tr>
-            <th>Service</th>
+            <th>Feature</th>
             <th>Billing Frequency</th>
             <th>Charges</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Tickertape</td>
+            <td>Advanced Analytics</td>
             <td>Monthly / Annual</td>
-            <td>Free: 0 | Pro: 249/2399</td>
+            <td>Free: 0 | Pro: 299/2999</td>
           </tr>
           <tr>
-            <td>Smallcase</td>
-            <td>Per transaction</td>
-            <td>Buy & Invest More: 100 | SIP: 10</td>
+            <td>Custom Strategies</td>
+            <td>Per strategy</td>
+            <td>Basic: Free | Advanced: 199</td>
           </tr>
           <tr>
-            <td>Kite Connect</td>
+            <td>API Access</td>
             <td>Monthly</td>
-            <td>Connect: 500 | Historical: 500</td>
+            <td>Basic: Free | Pro: 499</td>
           </tr>
         </tbody>
       </table>

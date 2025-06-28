@@ -21,26 +21,26 @@ function Hero_support() {
                         </p>
 
                         <select className="form-select form-select-lg mb-3" aria-label="Large select example">
-                            <option selected>What are Kite alerts and how to use them?</option>
-                            <option value="1">Why did the KYC Registration Agency (KRA) send an email and SMS?</option>
-                            <option value="2">Why does Zerodha ask to redo KYC?</option>
-                            <option value="3">What is Securities Lending and Borrowing (SLB)?</option>
+                            <option selected>How to get started with S-Exchange trading simulator?</option>
+                            <option value="1">How to set up virtual portfolio and start trading?</option>
+                            <option value="2">How to use interactive charts and technical analysis?</option>
+                            <option value="3">How to create and test trading strategies?</option>
                         </select>
 
                         {/* Link Grid */}
                         <div className="d-flex flex-column flex-sm-row flex-wrap gap-4 w-100">
-                            <Link to="#" className="fw-medium fs-6 text-white">Track account opening</Link>
-                            <Link to="#" className="fw-medium fs-6 text-white">Track segment activation</Link>
-                            <Link to="#" className="fw-medium fs-6 text-white">Intraday margins</Link>
-                            <Link to="#" className="fw-medium fs-6 text-white">Kite user manual</Link>
+                            <Link to="#" className="fw-medium fs-6 text-white">Track account setup</Link>
+                            <Link to="#" className="fw-medium fs-6 text-white">Track learning progress</Link>
+                            <Link to="#" className="fw-medium fs-6 text-white">Virtual trading guide</Link>
+                            <Link to="#" className="fw-medium fs-6 text-white">Platform user manual</Link>
                         </div>
                     </div>
 
                     {/* Right Column (Empty placeholder) */}
                     <div className="d-flex flex-column  mt-md-5 align-items-start w-50 gap-3 ">
                         <h4 className="fw-medium fs-4 text-white text-decoration-none">Featured</h4>
-                        <Link to="#" className="fw-medium fs-6 text-white text-decoration-none ms-md-3  ">Surveillance measure on scrips - June 2025</Link>
-                        <Link to="#" className="fw-medium fs-6 text-white text-decoration-none ms-md-3 ">Rights Entitlements listing in June 2025</Link>
+                        <Link to="#" className="fw-medium fs-6 text-white text-decoration-none ms-md-3  ">New trading simulator features - June 2025</Link>
+                        <Link to="#" className="fw-medium fs-6 text-white text-decoration-none ms-md-3 ">Advanced charting tools update</Link>
                     </div>
                 </div>
             </div>
