@@ -47,8 +47,8 @@ app.use(cors(corsoption));
 
 
 const store= MongoStore.create({
-  mongoUrl:"mongodb://localhost:27017/Zerodha",  //  if we use dburl for mongosb database then mongoUrl will be=dburl
-  // mongoUrl:dburl,
+  // mongoUrl:"mongodb://localhost:27017/Zerodha",  //  if we use dburl for mongosb database then mongoUrl will be=dburl
+  mongoUrl:dburl,
   crypto:{
     secret:process.env.SECRET,
   },
@@ -82,15 +82,15 @@ main()
   .catch((err) => console.log(err));
 
 //   // connecting the mongo db with the localhost
-async function main() {
-  await mongoose.connect("mongodb://localhost:27017/Zerodha");
-}
+// async function main() {
+//   await mongoose.connect("mongodb://localhost:27017/Zerodha");
+// }
 
 
 // // connecting the mongo database with the mongoatlas cloud servive
-// async function main() {
-//   await mongoose.connect(dburl);
-// }
+async function main() {
+  await mongoose.connect(dburl);
+}
 
 app.listen(port , ()=>{
     console.log(`server is running on port ${port}`);
