@@ -3,7 +3,7 @@ require("dotenv").config();
 }
 const express = require("express");
 const app = express();
-const port=8080;
+
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 
@@ -92,7 +92,7 @@ main()
 async function main() {
   await mongoose.connect(dburl);
 }
-
+const port= process.env.PORT || 4000;
 app.listen(port , ()=>{
     console.log(`server is running on port ${port}`);
 });
