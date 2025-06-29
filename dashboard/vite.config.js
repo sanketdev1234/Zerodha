@@ -8,13 +8,6 @@ export default defineConfig({
     port: 3001,
     host: true
   },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: undefined
-      }
-    }
-  },
   preview: {
     port: 3001,
     host: true
