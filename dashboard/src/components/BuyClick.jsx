@@ -15,8 +15,6 @@ import {
 import Draggable from 'react-draggable';
 import { deepOrange } from '@mui/material/colors';
 
-let addbuyurl="http://localhost:8080/addbuy";
-
 function PaperComponent(props) {
   const nodeRef = React.useRef(null);
   return (
@@ -60,7 +58,7 @@ return {...currdata , [event.target.name]:event.target.value}
      const total = buydata.Quantity * buydata.PricePerQuantity;
      console.log(total);
     
-    axios.post(addbuyurl, {
+    axios.post("/addbuy", {
     Quantity: buydata.Quantity,
     PricePerQuantity: buydata.PricePerQuantity,
     TotalPrice:total,
