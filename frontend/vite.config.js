@@ -10,6 +10,12 @@ export default defineConfig({
   },
   preview: {
     port: 3000,
-    host: true
+    host: true,
+    allowedHosts: [
+      's-exchange-frontend.onrender.com',
+      's-exchange-dashboard.onrender.com',
+      's-exchange-backend.onrender.com',
+      '.onrender.com'
+    ]
   }
 })
