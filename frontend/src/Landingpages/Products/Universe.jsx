@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import zerodhaFundhouse from '../../assets/zerodhafundhouse.png';
+import zerodhaFundhouse from '../../assets/zerodhaFundhouse.png';
 import smallcaseLogo from '../../assets/smallcase-logo.png';
 import sensibullLogo from '../../assets/sensibull-logo.svg';
 import streakLogo from '../../assets/streak-logo.png';
