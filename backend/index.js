@@ -59,20 +59,21 @@ const store= MongoStore.create({
 touchAfter:24*3600,
 });
 
-   const sessionoption={
-     secret: process.env.SECRET, 
-     resave: true,
-     saveUninitialized: true,
-     store: store,
-     cookie: {
-       httpOnly: true,
-       secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Required for cross-domain in production
-       expires: Date.now() + 1000*60*60*7*24,
-       maxAge: 1000*60*60*7*24
-     },
-     name: 'sessionId' // Custom session name
-   };
+const sessionoption = {
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  store: store,
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // Ensures cookie is only sent over HTTPS in production
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Required for cross-domain
+    domain: '.orender.com', // Cookie shared across subdomains
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // <-- FIXED: must be a Date object
+    maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days in milliseconds
+  },
+  name: 'sessionId'
+};
 store.on("error", (error) => {
   console.log("MongoDB session store error:", error);
 }); 
@@ -128,47 +129,9 @@ app.get("/",async(req,res)=>{
   res.send("Hi this is root folder")
 })
 
-// Test endpoint for session debugging
-app.get("/test-session", (req, res) => {
-  try {
-    if (req.isAuthenticated && req.isAuthenticated()) {
-      res.json({
-        success: true,
-        message: "Session is working!",
-        user: req.user,
-        sessionID: req.sessionID
-      });
-    } else {
-      res.status(401).json({
-        success: false,
-        message: "Session is NOT working!",
-        sessionID: req.sessionID,
-        cookies: req.headers.cookie,
-        passportInitialized: !!req.isAuthenticated
-      });
-    }
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error checking authentication",
-      error: error.message,
-      sessionID: req.sessionID
-    });
-  }
-});
 
-// Debug endpoint for detailed session info
-app.get("/debug-session", (req, res) => {
-  res.json({
-    sessionID: req.sessionID,
-    user: req.user,
-    isAuthenticated: req.isAuthenticated ? req.isAuthenticated() : false,
-    session: req.session,
-    cookies: req.headers.cookie,
-    passportInitialized: !!req.isAuthenticated,
-    sessionName: 'sessionId'
-  });
-});
+
+
 
 app.get("/getholding",asyncWrap(async(req,res)=>{
 const holding=await Holding.find();
