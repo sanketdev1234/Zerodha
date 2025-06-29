@@ -61,7 +61,7 @@ touchAfter:24*3600,
 
    const sessionoption={
      secret: process.env.SECRET, 
-     resave: false, 
+     resave: true,
      saveUninitialized: true,
      store: store,
      cookie: {
@@ -130,21 +130,44 @@ app.get("/",async(req,res)=>{
 
 // Test endpoint for session debugging
 app.get("/test-session", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({
-      success: true,
-      message: "Session is working!",
-      user: req.user,
+  try {
+    if (req.isAuthenticated && req.isAuthenticated()) {
+      res.json({
+        success: true,
+        message: "Session is working!",
+        user: req.user,
+        sessionID: req.sessionID
+      });
+    } else {
+      res.status(401).json({
+        success: false,
+        message: "Session is NOT working!",
+        sessionID: req.sessionID,
+        cookies: req.headers.cookie,
+        passportInitialized: !!req.isAuthenticated
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error checking authentication",
+      error: error.message,
       sessionID: req.sessionID
     });
-  } else {
-    res.status(401).json({
-      success: false,
-      message: "Session is NOT working!",
-      sessionID: req.sessionID,
-      cookies: req.headers.cookie
-    });
   }
+});
+
+// Debug endpoint for detailed session info
+app.get("/debug-session", (req, res) => {
+  res.json({
+    sessionID: req.sessionID,
+    user: req.user,
+    isAuthenticated: req.isAuthenticated ? req.isAuthenticated() : false,
+    session: req.session,
+    cookies: req.headers.cookie,
+    passportInitialized: !!req.isAuthenticated,
+    sessionName: 'sessionId'
+  });
 });
 
 app.get("/getholding",asyncWrap(async(req,res)=>{
