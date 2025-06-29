@@ -2,9 +2,11 @@ if(process.env.NODE_ENV!="production"){
 require("dotenv").config();
 }
 const express = require("express");
+const app = express();
+const port=8080;
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const app = express();
+
 const mongoose = require("mongoose");
 const methodOverride = require('method-override'); 
 app.use(methodOverride('_method'));
@@ -21,7 +23,6 @@ app.use(cookieParser());
 
 
 
-const port=8080;
 const dburl=process.env.ATLAS_DBURL;
 
 
