@@ -88,7 +88,7 @@ module.exports.renderloginfail=(req , res)=>{
 }
 else{
     res.send(req.user);
-    console.log(req.user) 
+    console.log("user not logged in" ,req.user) 
 }
 
         }
