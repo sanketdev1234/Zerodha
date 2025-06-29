@@ -1,3 +1,5 @@
+import education from '../../assets/education.svg';
+
 function Varsity(){
  return (
     <div className="container-fluid py-5" style={{ 
@@ -8,7 +10,7 @@ function Varsity(){
             <div className="row d-flex justify-content-between align-items-center">
                 <div className="col-md-6 mb-5 mb-md-0">
             <img
-                src="../src/assets/education.svg"
+                src={education}
                 alt="Education illustration"
                 className="img-fluid"
                 style={{ filter: "brightness(1.2) contrast(1.1)" }}

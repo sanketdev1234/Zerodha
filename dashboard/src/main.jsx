@@ -6,7 +6,7 @@ import Home from "./components/Home";
 
 // Configure axios defaults
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = import.meta.env.VITE_API_BACKEND_URL || 'http://localhost:8080';
 
 createRoot(document.getElementById('root')).render(
 <BrowserRouter>

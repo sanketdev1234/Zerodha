@@ -1,3 +1,6 @@
+import pricingMF from '../../assets/pricingMF.svg';
+import intradayTrades from '../../assets/intradayTrades.svg';
+
 function Chargetypes(){
     return (
         <div className="container mt-5 py-5">
@@ -5,7 +8,7 @@ function Chargetypes(){
                 <div className="col-md-1"></div>
                 <div className="col-md-3 d-flex flex-column justify-content-center align-items-center">
           <img
-            src="./src/assets/pricingMF.svg"
+            src={pricingMF}
             alt="price"
             className="img-fluid"  style={{maxWidth:"300px"}}
           />
@@ -14,7 +17,7 @@ function Chargetypes(){
                 </div>
                 <div className="col-md-4 d-flex flex-column justify-content-center align-items-center">
       <img
-            src="./src/assets/intradayTrades.svg"
+            src={intradayTrades}
             alt="price"
             className="img-fluid" style={{maxWidth:"300px"}}
           />
@@ -23,7 +26,7 @@ function Chargetypes(){
                 </div>
                 <div className="col-md-3 d-flex flex-column justify-content-center align-items-center">
           <img
-            src="./src/assets/pricingMF.svg"
+            src={pricingMF}
             alt="price"
             className="img-fluid"  style={{maxWidth:"300px"}}
           />

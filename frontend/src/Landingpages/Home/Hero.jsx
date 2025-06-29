@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import homeHero from '../../assets/homeHero.png';
 function Hero() {
   return (
     <div className="container-fluid py-5" style={{ 
@@ -11,7 +12,7 @@ function Hero() {
         <div className="row d-flex flex-column">
           <div className="col-md-8 offset-md-2 mb-5">
             <img
-              src="../src/assets/homeHero.png"
+              src={homeHero}
               alt="Hero illustration of investment"
               className="img-fluid"
             />

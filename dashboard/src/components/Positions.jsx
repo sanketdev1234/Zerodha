@@ -1,13 +1,12 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
-const url="http://localhost:8080/getposition"
 
 function Positions() {
     let [position,setposition]=useState([]);
         useEffect(()=>{
           async function generatedata(){
               try {
-                const response = await axios.get(url, { withCredentials: true });
+                const response = await axios.get("/getposition", { withCredentials: true });
                 console.log("tha data is", response.data);
                 setposition(response.data.position);
               } catch (error) {

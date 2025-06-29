@@ -1,4 +1,11 @@
 import { Link } from 'react-router-dom';
+import zerodhaFundhouse from '../../assets/zerodhafundhouse.png';
+import smallcaseLogo from '../../assets/smallcase-logo.png';
+import sensibullLogo from '../../assets/sensibull-logo.svg';
+import streakLogo from '../../assets/streak-logo.png';
+import tijoriIcon from '../../assets/tijori.svg';
+import dittoLogo from '../../assets/ditto-logo.png';
+
 function Universe(){
     return (
         <div className="container-fluid py-5" style={{ 
@@ -19,7 +26,7 @@ function Universe(){
                             <div className="col-md-3 my-4 text-center">
                                 <Link to="#" className="text-decoration-none text-center text-white">
                                     <img
-                                        src="./src/assets/zerodhafundhouse.png"
+                                        src={zerodhaFundhouse}
                                         alt="fundhouse"
                                         className="img-fluid" 
                                         style={{width:"200px", filter: "brightness(1.2) contrast(1.1)"}}
@@ -30,7 +37,7 @@ function Universe(){
                             <div className="col-md-3 my-4 text-center">
                                 <Link to="#" className="text-decoration-none text-center text-white">
                                     <img
-                                        src="./src/assets/smallcase-logo.png"
+                                        src={smallcaseLogo}
                                         alt="fundhouse"
                                         className="img-fluid" 
                                         style={{width:"200px", filter: "brightness(1.2) contrast(1.1)"}}
@@ -41,7 +48,7 @@ function Universe(){
                             <div className="col-md-3 my-4 text-center">
                                 <Link to="#" className="text-decoration-none text-center text-white">
                                     <img
-                                        src="./src/assets/sensibull-logo.svg"
+                                        src={sensibullLogo}
                                         alt="fundhouse"
                                         className="img-fluid" 
                                         style={{width:"200px", filter: "brightness(1.2) contrast(1.1)"}}
@@ -53,7 +60,7 @@ function Universe(){
                             <div className="col-md-3 my-4 text-center">
                                 <Link to="#" className="text-decoration-none text-center text-white">
                                     <img
-                                        src="./src/assets/streak-logo.png"
+                                        src={streakLogo}
                                         alt="fundhouse"
                                         className="img-fluid" 
                                         style={{width:"200px", filter: "brightness(1.2) contrast(1.1)"}}
@@ -64,7 +71,7 @@ function Universe(){
                             <div className="col-md-3 my-4 text-center">
                                 <Link to="#" className="text-decoration-none text-center text-white">
                                     <img
-                                        src="./src/assets/tijori.svg"
+                                        src={tijoriIcon}
                                         alt="fundhouse"
                                         className="img-fluid" 
                                         style={{width:"200px", filter: "brightness(1.2) contrast(1.1)"}}
@@ -75,7 +82,7 @@ function Universe(){
                             <div className="col-md-3 my-4 text-center">
                                 <Link to="#" className="text-decoration-none text-center text-white">
                                     <img
-                                        src="./src/assets/ditto-logo.png"
+                                        src={dittoLogo}
                                         alt="fundhouse"
                                         className="img-fluid" 
                                         style={{width:"200px", filter: "brightness(1.2) contrast(1.1)"}}

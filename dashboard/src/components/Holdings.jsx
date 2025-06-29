@@ -1,13 +1,12 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
-const url="http://localhost:8080/getholding"
 
 function Holdings() {
     let [holding,setholding]=useState([]);
         useEffect(()=>{
           async function generatedata(){
               try {
-                const response = await axios.get(url, { withCredentials: true });
+                const response = await axios.get("/getholding", { withCredentials: true });
                 console.log("tha data is", response.data);
                 setholding(response.data.holding);
               } catch (error) {

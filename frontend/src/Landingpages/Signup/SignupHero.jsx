@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-const signupurl="http://localhost:8080/auth/register";
+
 const SignupForm = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -144,7 +144,7 @@ const SignupForm = () => {
     setIsSubmitting(false);
 
     //add the user data to the database
-    await axios.post(signupurl,formData, {
+    await axios.post('/auth/register',formData, {
       headers: {
         'Content-Type': 'application/json'
       },

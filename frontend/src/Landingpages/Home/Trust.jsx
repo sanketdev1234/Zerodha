@@ -1,3 +1,5 @@
+import ecosystem from '../../assets/ecosystem.png';
+
 function Trust() {
   return (
     <div className="container-fluid py-5" style={{ 
@@ -46,7 +48,7 @@ function Trust() {
           {/* Right Column */}
           <div className="col-md-6">
             <img
-              src="../src/assets/ecosystem.png"
+              src={ecosystem}
               alt="Ecosystem illustration"
               className="img-fluid"
               style={{ filter: "brightness(1.1) contrast(1.1)" }}

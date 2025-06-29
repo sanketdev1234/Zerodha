@@ -1,12 +1,12 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
-const url="http://localhost:8080/getorder"
+
 function Orders() {
     let [order,setorder]=useState([]);
         useEffect(()=>{
           async function generatedata(){
               try {
-                const response = await axios.get(url, { withCredentials: true });
+                const response = await axios.get("/getorder", { withCredentials: true });
                 console.log("tha data is", response.data);
                 setorder(response.data.order);
               } catch (error) {

@@ -1,3 +1,5 @@
+import S from '../../assets/S.webp';
+
 function Peoples(){
     return (
         <div className="container-fluid py-5" style={{ 
@@ -12,7 +14,7 @@ function Peoples(){
 
             <div  className="col-md-3  d-flex flex-column justify-content-center align-items-center  gap-3 mt-4">
             <img
-                src="../src/assets/S.webp"
+                src={S}
                 alt="Hero illustration of investment"
                 className="img-fluid rounded-circle" 
                 style={{ border: "4px solid white", boxShadow: "0 8px 25px rgba(0,0,0,0.3)" }}

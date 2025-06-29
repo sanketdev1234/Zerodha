@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 import Draggable from 'react-draggable';
 import { deepPurple } from '@mui/material/colors';
-let addsellurl="http://localhost:8080/addsell";
 
 function PaperComponent(props) {
   const nodeRef = React.useRef(null);
@@ -61,7 +60,7 @@ return {...currdata , [event.target.name]:event.target.value,Margin: marginRef.c
      event.preventDefault();
     console.log(selldata);
      const total=(selldata.Quantity * selldata.PricePerQuantity)*selldata.Margin;
-      axios.post(addsellurl, {
+      axios.post("/addsell", {
     Quantity:selldata.Quantity,
     PricePerQuantity:selldata.PricePerQuantity,
     TotalPrice:total,

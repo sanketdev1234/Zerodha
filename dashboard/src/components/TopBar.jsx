@@ -3,12 +3,16 @@ import { useState ,useEffect} from 'react';
 import { Avatar, Box } from "@mui/material";
 import { deepOrange} from '@mui/material/colors';
 import user_present from './Helper';
-let logouturl="http://localhost:8080/auth/logout";
+import axios from 'axios';
+
 function TopBar(){
   let [linkactive , setlinkactive]=useState("Dashboard");
   let [isprofileclicked , setisprofileclicked]=useState(false);
   let [isLoggedIn, setIsLoggedIn] = useState({});
   let [todisplay,settodisplay]=useState("");
+  
+  const frontendUrl = import.meta.env.VITE_FRONTEND_URL || 'http://localhost:3000';
+  
   useEffect(() => {
     user_present().then((res) => {
       console.log("Response from user_present:", res);
@@ -21,8 +25,8 @@ function TopBar(){
   }, []);
   
   let handlelogout=async()=>{
-    await axios.get(logouturl, { withCredentials: true })
-    window.location.href = "http://localhost:3000";
+    await axios.get("/auth/logout", { withCredentials: true })
+    window.location.href = frontendUrl;
   }
   let handlelinkclick=(val)=>{
   setlinkactive(val);
@@ -84,7 +88,7 @@ let handlesubmit=(event)=>{
       <div className="offcanvas-body">
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li className="nav-item">
-            <a className="nav-link fw-normal" href="http://localhost:3000" target="_blank" rel="noopener noreferrer" style={{ color: "white" }}>
+            <a className="nav-link fw-normal" href={frontendUrl} target="_blank" rel="noopener noreferrer" style={{ color: "white" }}>
               🏠 Home
             </a>
           </li>

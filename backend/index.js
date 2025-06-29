@@ -41,7 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 const corsoption={
-  origin:["http://localhost:3000", "http://localhost:3001"],
+  origin:["http://localhost:3000", "http://localhost:3001", "https://s-exchange-frontend.onrender.com", "https://s-exchange-dashboard.onrender.com"],
   credentials:true,
   methods:["GET","POST","PUT","DELETE","PATCH"],
 }

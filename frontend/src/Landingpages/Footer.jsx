@@ -1,3 +1,5 @@
+import logo from '../assets/logo.svg';
+
 function Footer(){
     return (
 <div className="container-fluid py-5" style={{ 
@@ -9,7 +11,7 @@ function Footer(){
             <div className="col-md-1"></div>
             <div className="col-md-2 d-flex flex-column align-content-start gap-3 me-5 mb-3">
                     <img
-                src="../src/assets/logo.svg"
+                src={logo}
                 alt="Hero illustration of investment"
                 className="img-fluid"
                 style={{ filter: "brightness(1.2) contrast(1.1)" }}

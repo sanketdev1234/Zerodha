@@ -1,3 +1,6 @@
+import pricingMF from '../../assets/pricingMF.svg';
+import intradayTrades from '../../assets/intradayTrades.svg';
+
 function Pricing_Home(){
     return (
     <div className="container-fluid py-5" style={{ 

@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-const loginurl="http://localhost:8080/auth/login";
-const mfaSetupUrl="http://localhost:8080/mfa/setup2fa";
-const mfaVerifyUrl="http://localhost:8080/mfa/verify2fa";
-const mfaResetUrl="http://localhost:8080/mfa/reset2fa";
+
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -26,7 +23,8 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
   const [qrurl,setqrurl]=useState("");
   const [otpInput, setOtpInput] = useState("");
   const [showOtpInput, setShowOtpInput] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
   // Generate floating particles for background animation
   useEffect(() => {
     const generateParticles = () => {
@@ -142,7 +140,7 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
     await new Promise(resolve => setTimeout(resolve, 2000));
    
     setIsSubmitting(false);
-    await axios.post(loginurl,formData, {
+    await axios.post('/auth/login',formData, {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -190,7 +188,7 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     if(YES2FA){
-    await axios.post(mfaResetUrl, {
+    await axios.post('/mfa/reset2fa', {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -203,7 +201,7 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
     setIsSubmittingfor2f(false);
     }
     else {
-      await axios.post(mfaSetupUrl, {
+      await axios.post('/mfa/setup2fa', {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -231,7 +229,7 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
 
     try {
       console.log({token:otpInput});
-      const response = await axios.post(mfaVerifyUrl, {
+      const response = await axios.post('/mfa/verify2fa', {
         token: otpInput
       }, {
         headers: {

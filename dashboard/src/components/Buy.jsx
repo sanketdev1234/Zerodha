@@ -1,13 +1,12 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
-const url="http://localhost:8080/getbuy"
 
 function Buy() {
     let [buy,setbuy]=useState([]);
         useEffect(()=>{
           async function generatedata(){
               try {
-                const response = await axios.get(url, { withCredentials: true });
+                const response = await axios.get("/getbuy", { withCredentials: true });
                 console.log("tha data is", response.data);
                 setbuy(response.data.buy);
               } catch (error) {

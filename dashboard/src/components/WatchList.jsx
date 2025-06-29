@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import WatchTable from "./WatchTable.jsx";
-const url = "http://localhost:8080/getwatchlist";
-
 
 function WatchList({ fun }) {
     const [linkactive, setlinkactive] = useState("1");
@@ -12,7 +10,7 @@ function WatchList({ fun }) {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get(url, { withCredentials: true });
+                const response = await axios.get("/getwatchlist", { withCredentials: true });
                 const initialWatchlist = response.data.watchlist || [];
                 setwatchlist(initialWatchlist);
                 setDisplayedWatchlist(initialWatchlist.slice(0, 9));
@@ -29,7 +27,7 @@ function WatchList({ fun }) {
     
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:8080/deletewatchlist/${id}`, {
+            const response = await axios.delete(`/deletewatchlist/${id}`, {
                 withCredentials: true
             });
             if (response) {
