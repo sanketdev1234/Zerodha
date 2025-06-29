@@ -5,9 +5,6 @@ module.exports.renderloginfail=(req , res)=>{
     res.status(401).send("login failed! please try again enter correct credentials");
     };
 
-    module.exports.renderLoginForm=(req , res)=>{
-        res.send("login form");
-        }
 
         module.exports.register=async(req,res)=>{
             try{

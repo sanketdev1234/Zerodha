@@ -8,7 +8,7 @@ const MfaController=require("../controller/MfaController.js");
 const middlewarefor2fs=require("../middleware/authmiddleware.js").middlewarefor2fs;
 
 router.get("/loginfail",authController.renderloginfail);
-// router.get("/loginform",authController.renderLoginForm);
+
 router.post("/register",authController.register);
 
 router.post("/login" , saveredirecturl,passport.authenticate("local" , {
