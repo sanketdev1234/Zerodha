@@ -20,7 +20,7 @@ function Pricing_Home(){
                     <div className="row">
                 <div className="col">
               <img
-                src="../src/assets/pricingMF.svg"
+                src={pricingMF}
                 alt="Hero illustration of investment"
                 className="img-fluid"
                 style={{ filter: "brightness(1.2) contrast(1.1)" }}
@@ -28,7 +28,7 @@ function Pricing_Home(){
                 </div>
                 <div className="col">
               <img
-                src="../src/assets/pricingMF.svg"
+                src={pricingMF}
                 alt="Hero illustration of investment"
                 className="img-fluid"
                 style={{ filter: "brightness(1.2) contrast(1.1)" }}
@@ -36,7 +36,7 @@ function Pricing_Home(){
                 </div>
                 <div className="col">
               <img
-                src="../src/assets/intradayTrades.svg"
+                src={intradayTrades}
                 alt="Hero illustration of investment"
                 className="img-fluid"
                 style={{ filter: "brightness(1.2) contrast(1.1)" }}
