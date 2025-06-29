@@ -59,19 +59,35 @@ const store= MongoStore.create({
 touchAfter:24*3600,
 });
 
-   const sessionoption={secret:process.env.SECRET, resave:false , saveUninitialized:true,
-  store:store,
-  cookie:{
-    httpOnly:true,
-    expires:Date.now() + 1000*60*60*7*24,
-    maxAge:1000*60*60*7*24
-  }
-};
-store.on("error" , ()=>{
-  console.log("this error occur in mongo ",error);
+   const sessionoption={
+     secret: process.env.SECRET, 
+     resave: false, 
+     saveUninitialized: true,
+     store: store,
+     cookie: {
+       httpOnly: true,
+       secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Required for cross-domain in production
+       expires: Date.now() + 1000*60*60*7*24,
+       maxAge: 1000*60*60*7*24
+     },
+     name: 'sessionId' // Custom session name
+   };
+store.on("error", (error) => {
+  console.log("MongoDB session store error:", error);
 }); 
 
 app.use(session(sessionoption));
+
+// Add session debugging middleware
+app.use((req, res, next) => {
+  console.log("=== Session Debug ===");
+  console.log("Session ID:", req.sessionID);
+  console.log("User:", req.user);
+  console.log("Is Authenticated:", req.isAuthenticated());
+  console.log("Cookie:", req.headers.cookie);
+  next();
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -110,6 +126,24 @@ app.get("/",async(req,res)=>{
   res.send("Hi this is root folder")
 })
 
+// Test endpoint for session debugging
+app.get("/test-session", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({
+      success: true,
+      message: "Session is working!",
+      user: req.user,
+      sessionID: req.sessionID
+    });
+  } else {
+    res.status(401).json({
+      success: false,
+      message: "Session is NOT working!",
+      sessionID: req.sessionID,
+      cookies: req.headers.cookie
+    });
+  }
+});
 
 app.get("/getholding",asyncWrap(async(req,res)=>{
 const holding=await Holding.find();
