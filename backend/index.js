@@ -79,6 +79,14 @@ store.on("error", (error) => {
 
 app.use(session(sessionoption));
 
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localstrategy(User.authenticate()));//here the authentication is done based on the username and password which is stored in the database
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Add session debugging middleware
 app.use((req, res, next) => {
   console.log("=== Session Debug ===");
@@ -88,12 +96,6 @@ app.use((req, res, next) => {
   console.log("Cookie:", req.headers.cookie);
   next();
 });
-
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new localstrategy(User.authenticate()));//here the authentication is done based on the username and password which is stored in the database
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 main()
   .then(() => {
