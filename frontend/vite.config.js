@@ -15,7 +15,8 @@ export default defineConfig({
       's-exchange-frontend.onrender.com',
       's-exchange-dashboard.onrender.com',
       's-exchange-backend.onrender.com',
-      '.onrender.com'
+      '.onrender.com',
+      
     ]
   }
 })

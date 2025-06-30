@@ -2,12 +2,9 @@ if(process.env.NODE_ENV!="production"){
 require("dotenv").config();
 }
 const express = require("express");
-const app = express();
-const port = process.env.PORT || 8080;
-
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-
+const app = express();
 const mongoose = require("mongoose");
 const methodOverride = require('method-override'); 
 app.use(methodOverride('_method'));
@@ -24,6 +21,7 @@ app.use(cookieParser());
 
 
 
+const port=8080;
 const dburl=process.env.ATLAS_DBURL;
 
 
@@ -40,30 +38,13 @@ const AuthRoutes=require("./routes/AuthRoute.js");
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
 
-
-
-const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:3001",
-  "https://s-exchange-frontend.onrender.com",
-  "https://s-exchange-dashboard.onrender.com",
-];
-const corsoption = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
-
-app.use(cors(corsoption)); // main CORS
-app.options("*", cors(corsoption)); // handle preflight requests
+const corsoption={
+  origin:["http://localhost:3000", "http://localhost:3001",  "https://s-exchange-frontend.onrender.com",
+  "https://s-exchange-dashboard.onrender.com"],
+  credentials:true,
+  methods:["GET","POST","PUT","DELETE","PATCH"],
+}
+app.use(cors(corsoption));
 
 
 const store= MongoStore.create({
@@ -75,11 +56,8 @@ const store= MongoStore.create({
 touchAfter:24*3600,
 });
 
-const sessionoption = {
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: true,
-  store: store,
+   const sessionoption={secret:process.env.SECRET, resave:false , saveUninitialized:true,
+  store:store,
   cookie: {
     httpOnly: true,
     secure: true, // MUST be true for production with HTTPS
@@ -88,16 +66,12 @@ const sessionoption = {
     // DO NOT set the domain attribute. Let the browser handle it.
       domain: '.onrender.com',
   },
-  name: 'sessionId', // Using a generic name
 };
-
-store.on("error", (error) => {
-  console.log("MongoDB session store error:", error);
+store.on("error" , ()=>{
+  console.log("this error occur in mongo ",error);
 }); 
 
 app.use(session(sessionoption));
-
-
 
 app.use(passport.initialize());
 app.use(passport.session());
