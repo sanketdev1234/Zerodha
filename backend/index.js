@@ -49,13 +49,17 @@ const corsoption={
       "http://localhost:3001",
       "https://s-exchange-frontend.onrender.com", // your deployed frontend
       "https://s-exchange-dashboard.onrender.com", // your deployed dashboard
-      "https://orender.com",
-      "https://s-exchange-backend.orender.com",
+      "https://s-exchange-backend.onrender.com", // your backend domain
       // Add any other frontend URLs here
     ];
+    
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
     if (allowedOrigins.includes(origin)) {
       callback(null, true); // allow this origin
     } else {
+      console.log("CORS blocked origin:", origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -84,7 +88,7 @@ const sessionoption = {
     httpOnly: true,
     secure: true, // Ensures cookie is only sent over HTTPS in production
     sameSite: 'none', // Required for cross-domain
-    domain: '.orender.com', // Cookie shared across subdomains
+    domain: '.onrender.com', // Cookie shared across subdomains
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // <-- FIXED: must be a Date object
     maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days in milliseconds
   },
