@@ -15,7 +15,7 @@ const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const localstrategy = require("passport-local");
 
-// const cors = require('cors') // No longer needed
+const cors = require('cors')
 
 app.use(cookieParser());
 
@@ -38,10 +38,13 @@ const AuthRoutes=require("./routes/AuthRoute.js");
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
 
-// All CORS configuration can be removed
-// const corsoption = { ... };
-// app.use(cors(corsoption));
-// app.options("*", cors(corsoption));
+const corsoption={
+  origin:["http://localhost:3000", "http://localhost:3001",  "https://s-exchange-frontend.onrender.com",
+  "https://s-exchange-dashboard.onrender.com"],
+  credentials:true,
+  methods:["GET","POST","PUT","DELETE","PATCH"],
+}
+app.use(cors(corsoption));
 
 
 const store= MongoStore.create({
@@ -53,22 +56,18 @@ const store= MongoStore.create({
 touchAfter:24*3600,
 });
 
-   const sessionoption = {
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: true,
-  store: store,
+   const sessionoption={secret:process.env.SECRET, resave:false , saveUninitialized:true,
+  store:store,
   cookie: {
     httpOnly: true,
-    secure: true, 
-    sameSite: 'lax', // 'lax' is more secure and works for same-origin requests
+    secure: true, // MUST be true for production with HTTPS
+    sameSite: 'none', // MUST be 'none' for cross-domain cookies
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-    // The domain attribute should be removed
+    // DO NOT set the domain attribute. Let the browser handle it.
+      domain: '.onrender.com',
   },
-  name: 'sessionId', // Using a generic name
 };
-
-store.on("error", (error) => {
+store.on("error" , ()=>{
   console.log("this error occur in mongo ",error);
 }); 
 
