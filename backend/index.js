@@ -62,9 +62,16 @@ app.use(express.urlencoded({ extended: true }));
 //   allowedHeaders: ["Content-Type", "Authorization"],
 // };
 
-// app.use(cors(corsoption)); // main CORS
-// app.options("*", cors(corsoption)); // handle preflight requests
-app.use(cors())
+const corsoption = {
+  origin: "*",
+  credentials: false, // must be false if origin is "*"
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsoption)); // main CORS
+app.options("*", cors(corsoption)); // handle preflight requests
+
 
 const store= MongoStore.create({
   // mongoUrl:"mongodb://localhost:27017/Zerodha",  //  if we use dburl for mongosb database then mongoUrl will be=dburl
