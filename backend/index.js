@@ -41,7 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 
-const cors = require('cors');
+
 
 const corsoption = {
   origin: function(origin, callback) {
