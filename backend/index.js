@@ -59,7 +59,7 @@ const corsoption={
     if (allowedOrigins.includes(origin)) {
       callback(null, true); // allow this origin
     } else {
-      console.log("CORS blocked origin:", origin);
+      console.error("CORS Error: This origin is not allowed:", origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -85,13 +85,12 @@ const sessionoption = {
   store: store,
   cookie: {
     httpOnly: true,
-    secure: true, // Ensures cookie is only sent over HTTPS in production
-    sameSite: 'none', // Required for cross-domain
-    domain: '.onrender.com', // Cookie shared across subdomains
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // <-- FIXED: must be a Date object
-    maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days in milliseconds
+    secure: true, // MUST be true for production with HTTPS
+    sameSite: 'none', // MUST be 'none' for cross-domain cookies
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+    // DO NOT set the domain attribute. Let the browser handle it.
   },
-  name: 'sessionId'
+  name: 'sessionId', // Using a generic name
 };
 
 store.on("error", (error) => {
