@@ -40,9 +40,24 @@ const AuthRoutes=require("./routes/AuthRoute.js");
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
 
+
 // Updated CORS configuration for production - ALLOWING ALL ORIGINS TEMPORARILY
 const corsoption={
-  origin: true, // Allow all origins temporarily
+  origin: function(origin, callback) {
+    const allowedOrigins = [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "https://s-exchange-frontend.onrender.com", // your deployed frontend
+      "https://s-exchange-dashboard.onrender.com", // your deployed dashboard
+      "https://orender.com",
+      // Add any other frontend URLs here
+    ];
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true); // allow this origin
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
@@ -66,14 +81,15 @@ const sessionoption = {
   store: store,
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // Ensures cookie is only sent over HTTPS in production
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Required for cross-domain
+    secure: true, // Ensures cookie is only sent over HTTPS in production
+    sameSite: 'none', // Required for cross-domain
     domain: '.orender.com', // Cookie shared across subdomains
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // <-- FIXED: must be a Date object
     maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days in milliseconds
   },
   name: 'sessionId'
 };
+
 store.on("error", (error) => {
   console.log("MongoDB session store error:", error);
 }); 
@@ -87,16 +103,6 @@ app.use(passport.session());
 passport.use(new localstrategy(User.authenticate()));//here the authentication is done based on the username and password which is stored in the database
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-// Add session debugging middleware
-app.use((req, res, next) => {
-  console.log("=== Session Debug ===");
-  console.log("Session ID:", req.sessionID);
-  console.log("User:", req.user);
-  console.log("Is Authenticated:", req.isAuthenticated());
-  console.log("Cookie:", req.headers.cookie);
-  next();
-});
 
 main()
   .then(() => {
@@ -128,9 +134,6 @@ app.use((req,res,next)=>{
 app.get("/",async(req,res)=>{
   res.send("Hi this is root folder")
 })
-
-
-
 
 
 app.get("/getholding",asyncWrap(async(req,res)=>{
