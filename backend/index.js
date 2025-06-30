@@ -41,33 +41,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 
-// Updated CORS configuration for production - ALLOWING ALL ORIGINS TEMPORARILY
-const corsoption={
+const cors = require('cors');
+
+const corsoption = {
   origin: function(origin, callback) {
     const allowedOrigins = [
       "http://localhost:3000",
       "http://localhost:3001",
-      "https://s-exchange-frontend.onrender.com", // your deployed frontend
-      "https://s-exchange-dashboard.onrender.com", // your deployed dashboard
-      "https://s-exchange-backend.onrender.com", // your backend domain
-      // Add any other frontend URLs here
+      "https://s-exchange-frontend.onrender.com",
+      "https://s-exchange-DASHBOARD.onrender.com",
     ];
-    
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true); // allow this origin
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
     } else {
-      console.error("CORS Error: This origin is not allowed:", origin);
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
-app.use(cors(corsoption));
+
+app.use(cors(corsoption)); // main CORS
+app.options("*", cors(corsoption)); // handle preflight requests
+
 
 const store= MongoStore.create({
   // mongoUrl:"mongodb://localhost:27017/Zerodha",  //  if we use dburl for mongosb database then mongoUrl will be=dburl
