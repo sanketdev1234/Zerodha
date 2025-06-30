@@ -45,7 +45,10 @@ const corsoption={
   methods:["GET","POST","PUT","DELETE","PATCH"],
 }
 app.use(cors(corsoption));
-
+// app.all('/*', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   next();
+// });
 
 const store= MongoStore.create({
   // mongoUrl:"mongodb://localhost:27017/Zerodha",  //  if we use dburl for mongosb database then mongoUrl will be=dburl
@@ -56,15 +59,15 @@ const store= MongoStore.create({
 touchAfter:24*3600,
 });
 
-   const sessionoption={secret:process.env.SECRET, resave:false , saveUninitialized:true,
+  const sessionoption={secret:process.env.SECRET, resave:false , saveUninitialized:true,
   store:store,
   cookie: {
     httpOnly: true,
     secure: true, // MUST be true for production with HTTPS
     sameSite: 'none', // MUST be 'none' for cross-domain cookies
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-    // DO NOT set the domain attribute. Let the browser handle it.
-      domain: '.onrender.com',
+    // // DO NOT set the domain attribute. Let the browser handle it.
+    //   domain: '.onrender.com',
   },
 };
 store.on("error" , ()=>{
@@ -105,6 +108,7 @@ app.use((req,res,next)=>{
   res.locals.currentUser=req.user;
   next();
 })
+
 
 app.get("/",async(req,res)=>{
   res.send("Hi this is root folder")

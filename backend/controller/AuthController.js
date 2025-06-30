@@ -48,11 +48,11 @@ module.exports.renderloginfail=(req , res)=>{
                 // the second factor is required. The login is not yet complete.
                 return res.json({ mfaRequired: true });
             }
-                console.log("login successfull! welcome-back to Zerodha");
-                console.log(req.user) 
+            console.log("login successfull! welcome-back to Zerodha");
+            console.log(req.user);
+            req.session.save(() => {
                 res.send("login successfull! welcome-back to Zerodha");
-            
-        
+            });
         };
 
         module.exports.logout=(req , res, next)=>{
