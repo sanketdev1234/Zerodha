@@ -49,7 +49,7 @@ const corsoption = {
       "http://localhost:3000",
       "http://localhost:3001",
       "https://s-exchange-frontend.onrender.com",
-      "https://s-exchange-DASHBOARD.onrender.com",
+      "https://s-exchange-dashboard.onrender.com",
     ];
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -86,6 +86,7 @@ const sessionoption = {
     sameSite: 'none', // MUST be 'none' for cross-domain cookies
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     // DO NOT set the domain attribute. Let the browser handle it.
+      domain: '.onrender.com',
   },
   name: 'sessionId', // Using a generic name
 };
