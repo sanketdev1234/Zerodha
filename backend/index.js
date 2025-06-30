@@ -45,8 +45,8 @@ app.use(express.urlencoded({ extended: true }));
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
-  "http://s-exchange-frontend.onrender.com",
-  "http://s-exchange-dashboard.onrender.com",
+  "https://s-exchange-frontend.onrender.com",
+  "https://s-exchange-dashboard.onrender.com",
 ];
 const corsoption = {
   origin: function (origin, callback) {
