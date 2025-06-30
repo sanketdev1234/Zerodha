@@ -16,8 +16,11 @@ import SignupHero from './Landingpages/Signup/SignupHero';
 import LoginHero from './Landingpages/Signup/LoginHero';
 
 // Configure axios defaults
+axios.defaults.baseURL = import.meta.env.MODE === 'production' 
+  ? '/api' 
+  : 'http://localhost:8080';
+
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
 function AnimatedRoutes() {
   const location = useLocation();

@@ -1,16 +1,14 @@
 import axios from "axios";
 
-const authurl = `${import.meta.env.VITE_API_BACKEND_URL || 'http://localhost:8080'}/auth/authstatus`;
-
-const user_present = async () => {
-  try {
-    const response = await axios.get(authurl, { withCredentials: true });
-    return response.data;
-  } catch (err) {
-    console.log("Authentication error:", err);
-    return err;
-  }
+const checkAuth = async () => {
+    try {
+        const response = await axios.get("/auth/authstatus");
+        return response.data;
+    } catch (err) {
+        console.error("Auth check failed", err);
+        return null;
+    }
 };
 
-export default user_present;
+export default checkAuth;
 
