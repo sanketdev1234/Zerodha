@@ -14,7 +14,7 @@ module.exports.isloggedin = (req, res, next) => {
     // 3. If all checks pass, allow access.
     next();
 }
- 
+
 module.exports.saveredirecturl=(req,res,next)=>{
     if(req.session.redirectUrl){
         res.locals.redirectUrl=req.session.redirectUrl;

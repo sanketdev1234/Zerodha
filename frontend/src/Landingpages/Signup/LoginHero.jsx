@@ -138,7 +138,7 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
     await new Promise(resolve => setTimeout(resolve, 2000));
-   
+  
     setIsSubmitting(false);
     await axios.post('/auth/login',formData, {
       headers: {
