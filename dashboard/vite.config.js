@@ -9,7 +9,7 @@ export default defineConfig({
     host: true
   },
   preview: {
-    port: 3001,
+    port: process.env.PORT ? parseInt(process.env.PORT) : 3001,
     host: true,
     allowedHosts: [
       's-exchange-frontend.onrender.com',
