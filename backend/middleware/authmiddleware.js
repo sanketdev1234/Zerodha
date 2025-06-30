@@ -23,8 +23,8 @@ module.exports.saveredirecturl=(req,res,next)=>{
 }
 
 module.exports.middlewarefor2fs=(req,res,next)=>{
-    if(req.isAuthenticated()){
+    if(req.user){
         return next();
     }
-    res.send("this is due to middlewarefor2fs please login to access the functionalities");
+    res.status(401).send("You must be logged in to perform this action.");
 }
