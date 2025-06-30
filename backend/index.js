@@ -43,28 +43,28 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-const corsoption = {
-  origin: function(origin, callback) {
-    const allowedOrigins = [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "https://s-exchange-frontend.onrender.com",
-      "https://s-exchange-dashboard.onrender.com",
-    ];
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
+// const corsoption = {
+//   origin: function(origin, callback) {
+//     const allowedOrigins = [
+//       "http://localhost:3000",
+//       "http://localhost:3001",
+//       "https://s-exchange-frontend.onrender.com",
+//       "https://s-exchange-dashboard.onrender.com",
+//     ];
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true,
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//   allowedHeaders: ["Content-Type", "Authorization"],
+// };
 
-app.use(cors(corsoption)); // main CORS
-app.options("*", cors(corsoption)); // handle preflight requests
-
+// app.use(cors(corsoption)); // main CORS
+// app.options("*", cors(corsoption)); // handle preflight requests
+app.use(cors())
 
 const store= MongoStore.create({
   // mongoUrl:"mongodb://localhost:27017/Zerodha",  //  if we use dburl for mongosb database then mongoUrl will be=dburl

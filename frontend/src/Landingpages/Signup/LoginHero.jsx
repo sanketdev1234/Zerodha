@@ -140,7 +140,7 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
     await new Promise(resolve => setTimeout(resolve, 2000));
   
     setIsSubmitting(false);
-    await axios.post('https://s-exchange-backend.onrender.com/auth/login',formData, {
+    await axios.post('/auth/login',formData, {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -188,7 +188,7 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     if(YES2FA){
-    await axios.post('https://s-exchange-backend.onrender.com/mfa/reset2fa', {
+    await axios.post('/mfa/reset2fa', {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -201,7 +201,7 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
     setIsSubmittingfor2f(false);
     }
     else {
-      await axios.post('https://s-exchange-backend.onrender.com/mfa/setup2fa', {
+      await axios.post('/mfa/setup2fa', {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -229,7 +229,7 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
 
     try {
       console.log({token:otpInput});
-      const response = await axios.post('https://s-exchange-backend.onrender.com/mfa/verify2fa', {
+      const response = await axios.post('/mfa/verify2fa', {
         token: otpInput
       }, {
         headers: {
