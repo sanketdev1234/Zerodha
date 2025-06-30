@@ -42,32 +42,25 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-
-// const corsoption = {
-//   origin: function(origin, callback) {
-//     const allowedOrigins = [
-//       "http://localhost:3000",
-//       "http://localhost:3001",
-//       "https://s-exchange-frontend.onrender.com",
-//       "https://s-exchange-dashboard.onrender.com",
-//     ];
-//     if (!origin || allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   credentials: true,
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   allowedHeaders: ["Content-Type", "Authorization"],
-// };
-
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "https://s-exchange-frontend.onrender.com",
+  "https://s-exchange-dashboard.onrender.com",
+];
 const corsoption = {
-  origin: "*",
-  credentials: false, // must be false if origin is "*"
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
+
 
 app.use(cors(corsoption)); // main CORS
 app.options("*", cors(corsoption)); // handle preflight requests
