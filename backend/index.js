@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 
 
-const port=8080;
+const port=process.env.PORT || 8080;
 const dburl=process.env.ATLAS_DBURL;
 
 
