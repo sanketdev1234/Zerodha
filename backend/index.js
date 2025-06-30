@@ -50,6 +50,7 @@ const corsoption={
       "https://s-exchange-frontend.onrender.com", // your deployed frontend
       "https://s-exchange-dashboard.onrender.com", // your deployed dashboard
       "https://orender.com",
+      "https://s-exchange-backend.orender.com",
       // Add any other frontend URLs here
     ];
     if (allowedOrigins.includes(origin)) {
