@@ -15,16 +15,25 @@ const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const localstrategy = require("passport-local");
 
-const cors = require('cors')
+const cors = require('cors');
 
 app.use(cookieParser());
 
-
+const corsoption = {
+  origin: [
+    "https://s-exchange-frontend.onrender.com",
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "https://s-exchange-dashboard.onrender.com"
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+app.use(cors(corsoption));
 
 const port=process.env.PORT || 8080;
 const dburl=process.env.ATLAS_DBURL;
-
-
 
 const Holding=require("./model/HoldingsSchema.js");
 const Position=require("./model/PositionSchema.js");
@@ -37,18 +46,6 @@ const AuthRoutes=require("./routes/AuthRoute.js");
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
-
-const corsoption={
-  origin:["http://localhost:3000", "http://localhost:3001",  "https://s-exchange-frontend.onrender.com",
-  "https://s-exchange-dashboard.onrender.com"],
-  credentials:true,
-  methods:["GET","POST","PUT","DELETE","PATCH"],
-}
-app.use(cors(corsoption));
-// app.all('/*', function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   next();
-// });
 
 const store= MongoStore.create({
   // mongoUrl:"mongodb://localhost:27017/Zerodha",  //  if we use dburl for mongosb database then mongoUrl will be=dburl
