@@ -40,41 +40,18 @@ module.exports.renderloginfail=(req , res)=>{
         }
 
 
-        module.exports.login = async (req, res, next) => {
-            try {
-                if (!req.user) {
-                    return res.status(401).send("No user found");
-                }
-
-                const user = req.user;
-
-                if (user.ifMfaActive) {
-                    return res.json({ mfaRequired: true });
-                }
-
-                // Use Promise-based approach to work with wrapAsync
-                await new Promise((resolve, reject) => {
-                    req.login(user, (err) => {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            req.session.save((err) => {
-                                if (err) {
-                                    reject(err);
-                                } else {
-                                    resolve();
-                                }
-                            });
-                        }
-                    });
-                });
-
-                console.log("login successfull! welcome-back to Zerodha");
-                console.log(req.user);
-                res.send("login successfull! welcome-back to Zerodha");
-            } catch (error) {
-                next(error);
+        module.exports.login=async(req  , res)=>{
+            const user = await User.findById(req.user._id);
+            if (user.ifMfaActive) {
+                // If the user has MFA enabled, signal to the frontend that
+                // the second factor is required. The login is not yet complete.
+                return res.json({ mfaRequired: true });
             }
+            console.log("login successfull! welcome-back to Zerodha");
+            console.log(req.user);
+            req.session.save(() => {
+                res.send("login successfull! welcome-back to Zerodha");
+            });
         };
 
         module.exports.logout=(req , res, next)=>{
