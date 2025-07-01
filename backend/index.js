@@ -67,7 +67,7 @@ touchAfter:24*3600,
     //   domain: '.onrender.com',
   },
 };
-store.on("error" , ()=>{
+store.on("error" , (error)=>{
   console.log("this error occur in mongo ",error);
 }); 
 
