@@ -11,6 +11,13 @@ export default defineConfig({
   preview: {
     port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
     host: true,
+    cors: {
+      origin: [
+        'https://s-exchange-backend.onrender.com',
+        'http://localhost:8080'
+      ],
+      credentials: true
+    },
     allowedHosts: [
       's-exchange-frontend.onrender.com',
       's-exchange-dashboard.onrender.com',
