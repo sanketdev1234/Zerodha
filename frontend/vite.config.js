@@ -6,16 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    proxy: {
-      // Proxy API requests to your backend
-      '/api': {
-        target: 'https://s-exchange-backend.onrender.com',
-        changeOrigin: true,
-        secure: true,
-        // Optionally rewrite the path if your backend doesn't use /api
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      }
-    }
+    host: true
   },
   preview: {
     port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
