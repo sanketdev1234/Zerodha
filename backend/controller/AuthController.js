@@ -40,18 +40,29 @@ module.exports.renderloginfail=(req , res)=>{
         }
 
 
-        module.exports.login=async(req  , res)=>{
-            const user = await User.findById(req.user._id);
+        module.exports.login = (req, res, next) => {
+            if (!req.user) {
+                return res.status(401).send("No user found");
+            }
+
+            const user = req.user; // Use req.user directly since it's already set by Passport
 
             if (user.ifMfaActive) {
                 // If the user has MFA enabled, signal to the frontend that
                 // the second factor is required. The login is not yet complete.
                 return res.json({ mfaRequired: true });
             }
-            console.log("login successfull! welcome-back to Zerodha");
-            console.log(req.user);
-            req.session.save(() => {
-                res.send("login successfull! welcome-back to Zerodha");
+
+            // Explicitly call req.login to ensure session is established
+            req.login(user, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                console.log("login successfull! welcome-back to Zerodha");
+                console.log(req.user);
+                req.session.save(() => {
+                    res.send("login successfull! welcome-back to Zerodha");
+                });
             });
         };
 
