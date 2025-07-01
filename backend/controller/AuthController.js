@@ -40,30 +40,41 @@ module.exports.renderloginfail=(req , res)=>{
         }
 
 
-        module.exports.login = (req, res, next) => {
-            if (!req.user) {
-                return res.status(401).send("No user found");
-            }
-
-            const user = req.user; // Use req.user directly since it's already set by Passport
-
-            if (user.ifMfaActive) {
-                // If the user has MFA enabled, signal to the frontend that
-                // the second factor is required. The login is not yet complete.
-                return res.json({ mfaRequired: true });
-            }
-
-            // Explicitly call req.login to ensure session is established
-            req.login(user, (err) => {
-                if (err) {
-                    return next(err);
+        module.exports.login = async (req, res, next) => {
+            try {
+                if (!req.user) {
+                    return res.status(401).send("No user found");
                 }
+
+                const user = req.user;
+
+                if (user.ifMfaActive) {
+                    return res.json({ mfaRequired: true });
+                }
+
+                // Use Promise-based approach to work with wrapAsync
+                await new Promise((resolve, reject) => {
+                    req.login(user, (err) => {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            req.session.save((err) => {
+                                if (err) {
+                                    reject(err);
+                                } else {
+                                    resolve();
+                                }
+                            });
+                        }
+                    });
+                });
+
                 console.log("login successfull! welcome-back to Zerodha");
                 console.log(req.user);
-                req.session.save(() => {
-                    res.send("login successfull! welcome-back to Zerodha");
-                });
-            });
+                res.send("login successfull! welcome-back to Zerodha");
+            } catch (error) {
+                next(error);
+            }
         };
 
         module.exports.logout=(req , res, next)=>{
