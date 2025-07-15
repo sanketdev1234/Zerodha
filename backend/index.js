@@ -5,6 +5,7 @@ const express = require("express");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const app = express();
+app.set('trust proxy', 1);
 const mongoose = require("mongoose");
 const methodOverride = require('method-override'); 
 app.use(methodOverride('_method'));
