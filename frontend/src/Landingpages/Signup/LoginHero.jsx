@@ -245,6 +245,7 @@ const [showSuccessfor2f, setShowSuccessfor2f] = useState(false);
       setOtpInput("");
       setqrurl("");
       setTimeout(() => setShowSuccessfor2f(false), 4000);
+       window.location.href = 'https://s-exchange-dashboard.onrender.com';
     } catch (err) {
       console.log(err);
       alert("Invalid OTP. Please try again.");
