@@ -10,7 +10,7 @@ function TopBar(){
   let [isprofileclicked , setisprofileclicked]=useState(false);
   let [isLoggedIn, setIsLoggedIn] = useState({});
   let [todisplay,settodisplay]=useState("");
-  
+  let [money,setmoney]=useState("");
   const frontendUrl = import.meta.env.VITE_FRONTEND_URL || 'http://localhost:3000';
   
   useEffect(() => {
@@ -21,6 +21,7 @@ function TopBar(){
       console.log(res.username.charAt(0));
       setIsLoggedIn(res);
       settodisplay(res.username.charAt(0))
+      setmoney(res.virtualBalance);
     });
   }, []);
   
@@ -79,11 +80,12 @@ let handlesubmit=(event)=>{
     
     <Avatar sx={{ bgcolor: deepOrange[500] }}>{todisplay}</Avatar>
     <span className="text-white">{isLoggedIn.username} </span>
-
+  
   </Box>
+  <span className="text-white fs-4">[ Remaining balance : {money}]</span>
   <p onClick={handlelogout}>{todisplay?"Logout":""}</p>
 </Link>
-        <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" className="btn)-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div className="offcanvas-body">
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -121,13 +123,13 @@ let handlesubmit=(event)=>{
           <li className="nav-item dropdown">
             <Link className="nav-link fw-normal dropdown-toggle" to="/app&services" role="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={()=>handlelinkclick("live market index ticker")} 
             style={{ color: linkactive === "live market index ticker" ? "#ffc107" : "white" }}>
-              Market Indices
+              TRADING BOT
             </Link>
             <ul className="dropdown-menu" style={{ background: "rgba(30, 60, 114, 0.95)", backdropFilter: "blur(10px)" }}>
-              <li><Link className="dropdown-item fw-medium text-white" to="#" style={{color:"#28a745"}} id="gradient-text" >
-              NIFTY 50 25104.25 1.05 (0.00%)</Link></li>
-              <li><Link className="dropdown-item fw-medium text-white" to="#" style={{color:"#28a745"}} id="gradient-text" >
-            SENSEX 82391.72 -53.49 (-0.06%)</Link></li>
+              <li><Link className="dropdown-item fw-medium text-white" to="/aiguide" style={{color:"#28a745"}} id="gradient-text" >
+              AI GUIDE</Link></li>
+              <li><Link className="dropdown-item fw-medium text-white" to="/aichat" style={{color:"#28a745"}} id="gradient-text" >
+            CHAT WITH AI</Link></li>
               <li>
                 <hr className="dropdown-divider"/>
               </li>

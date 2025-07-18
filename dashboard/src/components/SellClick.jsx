@@ -73,10 +73,12 @@ return {...currdata , [event.target.name]:event.target.value,Margin: marginRef.c
   withCredentials: true
 })
   .then(function (response) {
-    console.log(response);
+    console.log("the response",response);
+    window.alert(response.data);
   })
   .catch(function (error) {
-    console.log(error);
+    console.log("the error",error);
+    window.alert(error.response.data);
   });
 
     setselldata({

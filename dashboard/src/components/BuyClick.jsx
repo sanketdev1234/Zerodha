@@ -71,6 +71,7 @@ return {...currdata , [event.target.name]:event.target.value}
 })
   .then(function (response) {
     console.log(response);
+    window.alert(response.data);
   })
   .catch(function (error) {
     console.log(error);

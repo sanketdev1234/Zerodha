@@ -1,4 +1,5 @@
 const mongoose=require("mongoose");
+const user=require("./UserSchema")
 const Schema=mongoose.Schema;
 
 const OrderingSchema=new Schema({
@@ -18,7 +19,10 @@ Mode:{
 type:String,
 required:true
 },
-
+Owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+}
 });
 
 

@@ -4,13 +4,6 @@ module.exports.isloggedin = (req, res, next) => {
         req.session.redirecturl = req.originalUrl;
         return res.status(401).json({ message: "You must be logged in to access this." });
     }
-
-    // 2. Check if the user has MFA enabled on their account, but has NOT yet
-    //    verified it for this specific session.
-    if (req.user.ifMfaActive && !req.session.isMfaActive) {
-        return res.status(403).json({ message: "MFA is required for this action.", mfaRequired: true });
-    }
-    
     // 3. If all checks pass, allow access.
     next();
 }

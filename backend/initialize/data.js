@@ -352,4 +352,79 @@ const sampleWatchlist = [
   { name: "BANKBARODA", price: 252.9, percent: "-0.44%", isDown: true },
 ];
 
-module.exports={sampleHoldings , sampleOrders,samplePositions,sampleWatchlist};
+const SampleTutorials=[{
+  "title": "What is a Stock?",
+  "content": "A stock (also known as equity) represents ownership in a corporation. When you buy a company's stock, you become a shareholder and own a portion of that company. Stocks are issued by companies to raise capital, and shareholders may benefit through dividends or by selling their shares when the price increases.",
+
+}
+,{
+  "title": "Bull vs Bear Markets",
+  "content": "A bull market refers to a market condition where prices are rising or expected to rise. It's characterized by investor optimism. A bear market is the opposite - when prices are falling or expected to fall, accompanied by widespread pessimism. Bull markets typically last longer than bear markets.",
+
+},{
+  "title": "Market Orders vs Limit Orders",
+  "content": "A market order is an instruction to buy or sell a stock immediately at the best available current price. A limit order sets a specific price at which you're willing to buy or sell. Market orders guarantee execution but not price, while limit orders guarantee price but not execution.",
+
+},{
+  "title": "What is Diversification?",
+  "content": "Diversification is a risk management strategy that mixes a wide variety of investments within a portfolio. The idea is that a portfolio of different kinds of investments will, on average, yield higher returns and pose lower risk than any individual investment. This includes spreading investments across different industries, asset classes, and geographies.",
+
+},{
+  "title": "Understanding P/E Ratio",
+  "content": "The price-to-earnings (P/E) ratio compares a company's stock price to its earnings per share. It's calculated as: P/E Ratio = Market Value per Share / Earnings per Share. A high P/E could mean a stock is overvalued, or investors expect high growth. A low P/E might indicate undervaluation or potential problems.",
+
+}];
+
+const SampleQuiz=[{
+  "question": "What does owning a stock represent?",
+  "options": [
+    "A loan to the company",
+    "Ownership in the company",
+    "A government bond",
+    "A type of insurance"
+  ],
+  "correctIndex": 1,
+  "explanation": "Owning a stock means you own a portion (share) of the company."
+},{
+  "question": "What characterizes a bull market?",
+  "options": [
+    "Falling prices and investor pessimism",
+    "Rising prices and investor optimism",
+    "Stagnant prices with no clear direction",
+    "High volatility with no trend"
+  ],
+  "correctIndex": 1,
+  "explanation": "Bull markets are periods of rising prices and positive investor sentiment."
+},{
+  "question": "What is the main advantage of a limit order?",
+  "options": [
+    "Guarantees immediate execution",
+    "Guarantees the price you'll pay/receive",
+    "Has lower brokerage fees",
+    "Executes only after market hours"
+  ],
+  "correctIndex": 1,
+  "explanation": "Limit orders let you control the price, though they may not execute if the market doesn't reach your price."
+},{
+  "question": "What is the primary benefit of diversification?",
+  "options": [
+    "Guarantees higher returns",
+    "Reduces overall portfolio risk",
+    "Eliminates all investment risk",
+    "Focuses your investments in top performers"
+  ],
+  "correctIndex": 1,
+  "explanation": "Diversification reduces risk by spreading investments across different assets."
+},{
+  "question": "What does a high P/E ratio typically indicate?",
+  "options": [
+    "The company is definitely overvalued",
+    "Investors expect higher future growth",
+    "The stock pays high dividends",
+    "The company has no earnings"
+  ],
+  "correctIndex": 1,
+  "explanation": "While high P/E can mean overvaluation, it often reflects investor expectations of strong future growth."
+}];
+
+module.exports={sampleHoldings , sampleOrders,samplePositions,sampleWatchlist,SampleTutorials,SampleQuiz};

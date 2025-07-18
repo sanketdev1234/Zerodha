@@ -5,11 +5,14 @@ import Orders from "./Orders";
 import Holdings from "./Holdings";
 import Sell from "./Sell";
 import Buy from "./Buy";
+import GeminiAdvisorSuggestions from "./GemniAiSuggestion"
+import AiChat from "./Aichat";
 import Summary from "./Summary";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NotFound from "./Notfound";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+
 function PageWrapper({ children }) {
   return (
     <motion.div
@@ -35,7 +38,10 @@ function AnimatedRoutes({ arr }) {
         <Route path="/holdings" element={<PageWrapper><Holdings /></PageWrapper>} />
         <Route path="/Sell" element={<PageWrapper><Sell /></PageWrapper>} />
         <Route path="/buy" element={<PageWrapper><Buy /></PageWrapper>} />
+        <Route path="/aiguide" element={<PageWrapper><GeminiAdvisorSuggestions /></PageWrapper>} />
+        <Route path="/aichat" element={<PageWrapper><AiChat /></PageWrapper>} />
         <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
+
       </Routes>
     </AnimatePresence>
   );

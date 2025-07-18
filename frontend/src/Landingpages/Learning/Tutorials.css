@@ -1,0 +1,82 @@
+.tutorials-slider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    background: linear-gradient(135deg, #e0e7ff 0%, #f0fdfa 100%);
+    padding: 1rem;
+  }
+  
+  .tutorials-slider-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    padding: 2rem 2.5rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    transition: box-shadow 0.3s;
+    margin: 1rem;
+  }
+  
+  .tutorials-slider-card h2 {
+    margin-bottom: 1rem;
+    color: #2563eb;
+    font-size: 2rem;
+  }
+  
+  .tutorials-content {
+    font-size: 1.1rem;
+    color: #222;
+    margin-bottom: 2rem;
+    word-break: break-word;
+  }
+  
+  .tutorials-slider-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .tutorials-slider-btn {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .tutorials-slider-btn:hover {
+    background: #1e40af;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 700px) {
+    .tutorials-slider-card {
+      padding: 1.2rem 0.8rem;
+      max-width: 95vw;
+    }
+    .tutorials-slider-card h2 {
+      font-size: 1.3rem;
+    }
+    .tutorials-content {
+      font-size: 1rem;
+    }
+    .tutorials-slider-btn {
+      font-size: 0.95rem;
+      padding: 0.4rem 1rem;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .tutorials-slider-card {
+      padding: 0.7rem 0.2rem;
+    }
+    .tutorials-slider-controls span {
+      font-size: 0.9rem;
+    }
+  }

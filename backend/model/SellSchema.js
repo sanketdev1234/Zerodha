@@ -1,4 +1,5 @@
 const mongoose=require("mongoose");
+const user=require("./UserSchema")
 const Schema=mongoose.Schema;
 
 const SellSchema=new Schema({
@@ -24,6 +25,10 @@ Company:{
     type:String,
     required:true
 },
+Owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+}
 });
 
 

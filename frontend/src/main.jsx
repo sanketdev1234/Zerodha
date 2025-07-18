@@ -14,11 +14,13 @@ import { useLocation } from "react-router-dom";
 import './index.css'
 import SignupHero from './Landingpages/Signup/SignupHero';
 import LoginHero from './Landingpages/Signup/LoginHero';
+import Tutorial from './Landingpages/Learning/Tutorials';
+import Quiz from './Landingpages/Learning/Quiz';
 
 // Configure axios defaults
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
-
+// axios.defaults.baseURL = 'http://localhost:8080';
 function AnimatedRoutes() {
   const location = useLocation();
   return (
@@ -32,6 +34,8 @@ function AnimatedRoutes() {
         <Route path='/product' element={<PageWrapper><ProductMain/></PageWrapper>} />
         <Route path='/support' element={<PageWrapper><SupportMain/></PageWrapper>} />
         <Route path='/pricing' element={<PageWrapper><PricingMain/></PageWrapper>} />
+        <Route path='/tutorials' element={<PageWrapper><Tutorial/></PageWrapper>} />
+        <Route path='/quiz' element={<PageWrapper><Quiz/></PageWrapper>} />
         <Route path='*' element={<PageWrapper><NotFound/></PageWrapper>} />
       </Routes>
     </AnimatePresence>

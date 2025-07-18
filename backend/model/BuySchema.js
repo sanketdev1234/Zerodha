@@ -1,11 +1,10 @@
 const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
-
+const user=require("./UserSchema");
 const BuySchema=new Schema({
 Quantity:{
     type:Number,
     required:true,
-    min: 1,
 },
 PricePerQuantity:{
     type:Number,
@@ -20,6 +19,10 @@ Company:{
     type:String,
     required:true
 },
+Owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+}
 });
 
 

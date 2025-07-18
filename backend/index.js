@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 app.set('trust proxy', 1);
 const mongoose = require("mongoose");
+
 const methodOverride = require('method-override'); 
 app.use(methodOverride('_method'));
 
@@ -17,6 +18,7 @@ const passport = require("passport");
 const localstrategy = require("passport-local");
 
 const cors = require('cors');
+const { isloggedin } = require("./middleware/authmiddleware.js");
 
 app.use(cookieParser());
 
@@ -42,6 +44,8 @@ const Ordering=require("./model/OrdersSchema.js");
 const Watchlist=require("./model/WatchlistSchema.js");
 const Buy=require("./model/BuySchema.js");
 const Sell=require("./model/SellSchema.js");
+const Tutorial=require("./model/Tutorials.js");
+const Quiz=require("./model/Quiz.js");
 const User=require("./model/UserSchema.js");
 const AuthRoutes=require("./routes/AuthRoute.js");
 
@@ -61,8 +65,8 @@ touchAfter:24*3600,
   store:store,
   cookie: {
     httpOnly: true,
-    secure: true, // MUST be true for production with HTTPS
-    sameSite: 'none', // MUST be 'none' for cross-domain cookies
+    // secure: false, // MUST be true for production with HTTPS
+    // sameSite: 'Lax', // MUST be 'none' for cross-domain cookies
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     // // DO NOT set the domain attribute. Let the browser handle it.
     //   domain: '.onrender.com',
@@ -118,7 +122,7 @@ const holding=await Holding.find();
   res.send({holding});
 }));
 app.get("/getorder",asyncWrap(async(req,res)=>{
-const order=await Ordering.find();
+const order=await Ordering.find({Owner:req.user._id});
   res.send({order});
 }));
 app.get("/getposition",asyncWrap(async(req,res)=>{
@@ -137,37 +141,199 @@ app.delete("/deletewatchlist/:id",asyncWrap(async(req,res)=>{
   res.send(deleted_watchlist);
 }));
 
-app.post("/addbuy",asyncWrap(async(req,res)=>{
+app.post("/addbuy", isloggedin, asyncWrap(async(req,res)=>{
   const qty=req.body.Quantity;
   const ppq=req.body.PricePerQuantity;
   const tp=req.body.TotalPrice;
   const company=req.body.Company;
-  const newbuy= new Buy({Quantity:qty,PricePerQuantity:ppq,TotalPrice:tp,Company:company});
+  const currentUser=await User.findById(req.user._id);
+  if(currentUser.virtualBalance < tp){
+  return res.send("not enough balance");
+  }
+  const newbuy= new Buy({Quantity:qty,PricePerQuantity:ppq,TotalPrice:tp,Company:company, Owner: req.user._id});
   await newbuy.save();
+  const newOrder = new Ordering({
+    Name: company,
+    price: ppq,
+    Quantity: qty,
+    Mode: "BUY",
+    Owner: req.user._id
+  });
+  await newOrder.save();
+  currentUser.virtualBalance=currentUser.virtualBalance-tp;
+  await currentUser.save();
   res.send(`added new buy stock ${newbuy}`);
 }));
 
-app.post("/addsell",asyncWrap(async(req,res)=>{
-  const qty=req.body.Quantity;
-  const ppq=req.body.PricePerQuantity;
-  const tp=req.body.TotalPrice;
-  const margin=req.body.Margin;
-  const company=req.body.Company;
-  const newsell= new Sell({Quantity:qty,PricePerQuantity:ppq,TotalPrice:tp,Margin:margin,Company:company});
+app.post("/addsell", isloggedin, asyncWrap(async(req, res) => {
+  const qty = req.body.Quantity;
+  const ppq = req.body.PricePerQuantity;
+  const tp = req.body.TotalPrice;
+  const margin = req.body.Margin;
+  const company = req.body.Company;
+
+  // 1. Find total quantity bought for this company by this user
+  const totalBought = await Buy.aggregate([
+    { $match: { Owner: req.user._id, Company: company } },
+    { $group: { _id: null, total: { $sum: "$Quantity" } } }
+  ]);
+  const boughtQty = totalBought.length > 0 ? totalBought[0].total : 0;
+
+
+  if (boughtQty < qty) {
+    return res.send( "Not enough quantity to sell. " );
+  }
+
+  // 4. Reduce quantity from Buy records (FIFO)
+  let qtyToReduce = qty;
+  const userBuys = await Buy.find({ Owner: req.user._id, Company: company, Quantity: { $gt: 0 } }).sort({ _id: 1 });
+
+  for (let buy of userBuys) {
+    if (qtyToReduce <= 0) break;
+    if (buy.Quantity <= qtyToReduce) {
+      qtyToReduce -= buy.Quantity;
+      buy.Quantity = 0;
+    } else {
+      buy.Quantity -= qtyToReduce;
+      qtyToReduce = 0;
+    }
+    await buy.save();
+  }
+
+  // 5. Proceed with sell
+  const newsell = new Sell({
+    Quantity: qty,
+    PricePerQuantity: ppq,
+    TotalPrice: tp,
+    Margin: margin,
+    Company: company,
+    Owner: req.user._id
+  });
   await newsell.save();
+
+  // 6. Add to Orders
+  const newOrder = new Ordering({
+    Name: company,
+    price: ppq,
+    Quantity: qty,
+    Mode: "SELL",
+    Owner: req.user._id
+  });
+  await newOrder.save();
+
+  const currentUser=await User.findById(req.user._id);
+  currentUser.virtualBalance=currentUser.virtualBalance+tp;
+  await currentUser.save();
+
   res.send(`added new sell stock ${newsell}`);
 }));
 
-app.get("/getbuy",asyncWrap(async(req,res)=>{
-  const buy=await Buy.find();
-    res.send({buy});
-  }));
+app.get("/getbuy", isloggedin, asyncWrap(async(req,res)=>{
+  const buy=await Buy.find({ Owner: req.user._id });
+  res.send({buy});
+}));
   
-  app.get("/getsell",asyncWrap(async(req,res)=>{
-    const sell=await Sell.find();
+  app.get("/getsell", isloggedin, asyncWrap(async(req,res)=>{
+    const sell=await Sell.find({ Owner: req.user._id });
       res.send({sell});
     }));
 
+    app.get("/getbalance", isloggedin, asyncWrap(async(req, res) => {
+      const user = await User.findById(req.user._id);
+      res.send(`Remaining balance :  ${user.virtualBalance}`);
+    }));
+
+
+app.get("/tutorials", async (req, res) => {
+  const tutorials = await Tutorial.find();
+  res.json(tutorials);
+});
+
+app.get("/tutorials/:id", async (req, res) => {
+  const tutorial = await Tutorial.findById(req.params.id);
+  res.send(tutorial);
+});
+
+app.get("/quizzes", async (req, res) => {
+  const quizzes = await Quiz.find();
+  res.send(quizzes);
+});
+
+app.get("/quizzes/:id", async (req, res) => {
+  try {
+    const quiz = await Quiz.findById(req.params.id);
+    if (!quiz) {
+      return res.send("Quiz not found" );
+    }
+    res.send(quiz);
+  } catch (err) {
+    res.send(err);
+  }
+});
+
+const axios = require('axios');
+
+app.post('/api/advisor/chat', isloggedin, async (req, res) => {
+  const  question  = req.body.question;
+  try {
+    const geminiRes = await axios.post(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
+      {
+        contents: [{ parts: [{ text: question }] }]
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-goog-api-key': process.env.GEMINI_API_KEY
+        }
+      }
+    );
+    
+    const answer = geminiRes.data.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not answer that.';
+    res.send(answer);
+  } catch (err) {
+    res.send( err );
+  }
+});
+
+
+app.get('/api/advisor/gemini-suggestions', isloggedin, async (req, res) => {
+  const buys = await Buy.find({ Owner: req.user._id });
+  const sells = await Sell.find({ Owner: req.user._id });
+  const orders = await Ordering.find({ Owner: req.user._id });
+  const watchlist = await Watchlist.find({});
+
+  const prompt = `
+You are an expert trading advisor. Analyze the following user's portfolio and suggest what they should buy, sell, or hold. Be specific and explain your reasoning.
+
+Buys: ${JSON.stringify(buys)}
+Sells: ${JSON.stringify(sells)}
+Orders: ${JSON.stringify(orders)}
+Watchlist: ${JSON.stringify(watchlist)}
+
+Give actionable advice for this user.
+`;
+
+  try {
+    const geminiRes = await axios.post(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
+      {
+        contents: [{ parts: [{ text: prompt }] }]
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-goog-api-key': process.env.GEMINI_API_KEY
+        }
+      }
+    );
+    const suggestion = geminiRes.data.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not generate suggestions.';
+    
+    res.send( suggestion );
+  } catch (err) {
+    res.send( err );
+  }
+});
 
     app.use("/auth",AuthRoutes);
     app.use("/mfa",AuthRoutes);

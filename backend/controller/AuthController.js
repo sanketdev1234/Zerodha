@@ -17,8 +17,12 @@ module.exports.renderloginfail=(req , res)=>{
                 ifMfaActive: false,
                 };
             let newly_added_user=await User.register(newuser,password);
+            if(req.body.virtualBalance){
+                newly_added_user.virtualBalance=req.body.virtualBalance;
+                await newly_added_user.save();
+            }
             console.log(newly_added_user);
-        
+            
             //automatically login after signup {start
             req.login(newly_added_user , (error)=>{
                 if(error){ // error will occur if the user is not signed in
@@ -49,9 +53,7 @@ module.exports.renderloginfail=(req , res)=>{
             }
             console.log("login successfull! welcome-back to Zerodha");
             console.log(req.user);
-            req.session.save(() => {
                 res.send("login successfull! welcome-back to Zerodha");
-            });
         };
 
         module.exports.logout=(req , res, next)=>{
@@ -70,7 +72,7 @@ module.exports.renderloginfail=(req , res)=>{
             })
         }
 
-    module.exports.authstatus=(req,res,next)=>{
+    module.exports.authstatus=(req,res)=>{
             if(req.user)
 {
     res.send(req.user);

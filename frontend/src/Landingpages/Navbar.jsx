@@ -78,20 +78,20 @@ function Navbar(){
               <li>
                 <hr className="dropdown-divider"/>
               </li>
-              <li><Link className="dropdown-item mb-3 ms-3" to="/varsity">
+              <li><Link className="dropdown-item mb-3 ms-3" to="/tutorials">
           <img
             src={varsityIcon}
             alt="Hero illustration of investment"
             className="img-fluid"
           />
-                &nbsp;Varsity</Link></li>
-              <li><Link className="dropdown-item ms-3" to="/tq&a">
+                &nbsp;Tutorials</Link></li>
+              <li><Link className="dropdown-item ms-3" to="/quiz">
           <img
             src={tqnaIcon}
             alt="Hero illustration of investment"
             className="img-fluid"
           />
-                Trading Q&A</Link></li>
+                Quiz</Link></li>
             </ul>
           </li>
         </ul>

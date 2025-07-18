@@ -4,6 +4,11 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const passwordValidator = require('../Utilities/PasswordValidator');
 
 const UserSchema = new Schema({
+    virtualBalance: {
+        type: Number,
+        default: 100000, // or any starting amount you want
+        required: true
+    },
     email:{
         type:String,
         required:true,
