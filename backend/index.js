@@ -65,8 +65,8 @@ touchAfter:24*3600,
   store:store,
   cookie: {
     httpOnly: true,
-    // secure: false, // MUST be true for production with HTTPS
-    // sameSite: 'Lax', // MUST be 'none' for cross-domain cookies
+    secure: true, // MUST be true for production with HTTPS
+    sameSite: 'none', // MUST be 'none' for cross-domain cookies
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     // // DO NOT set the domain attribute. Let the browser handle it.
     //   domain: '.onrender.com',
