@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import './AiChat.css';
+import './Aichat.css';
 
 function AiChat() {
   const [messages, setMessages] = useState([]);
