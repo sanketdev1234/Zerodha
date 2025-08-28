@@ -5,7 +5,7 @@ const express = require("express");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const app = express();
-app.set('trust proxy', 1);
+// app.set('trust proxy', 1);
 const mongoose = require("mongoose");
 
 const methodOverride = require('method-override'); 
@@ -24,15 +24,16 @@ app.use(cookieParser());
 
 const corsoption = {
   origin: [
-    "https://s-exchange-frontend.onrender.com",
+    // "https://s-exchange-frontend.onrender.com",
     "http://localhost:3000",
     "http://localhost:3001",
-    "https://s-exchange-dashboard.onrender.com"
+    // "https://s-exchange-dashboard.onrender.com"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
+
 app.use(cors(corsoption));
 
 const port=process.env.PORT || 8080;
@@ -65,8 +66,8 @@ touchAfter:24*3600,
   store:store,
   cookie: {
     httpOnly: true,
-    secure: true, // MUST be true for production with HTTPS
-    sameSite: 'none', // MUST be 'none' for cross-domain cookies
+    secure: false, // MUST be true for production with HTTPS
+    sameSite: 'lax', // MUST be 'none' for cross-domain cookies
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     // // DO NOT set the domain attribute. Let the browser handle it.
     //   domain: '.onrender.com',

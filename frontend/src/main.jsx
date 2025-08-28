@@ -19,8 +19,8 @@ import Quiz from './Landingpages/Learning/Quiz';
 
 // Configure axios defaults
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
-// axios.defaults.baseURL = 'http://localhost:8080';
+// axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+axios.defaults.baseURL = 'http://localhost:8080';
 function AnimatedRoutes() {
   const location = useLocation();
   return (
