@@ -2,7 +2,7 @@
 
 A full-stack stock trading platform built with React, Node.js, and Express.
 
-## 🚀 Features
+##  Features
 
 - **User Authentication & Authorization** - Secure login/signup with MFA support
 - **Real-time Stock Trading** - Buy/sell stocks with live market data
@@ -11,7 +11,7 @@ A full-stack stock trading platform built with React, Node.js, and Express.
 - **Dashboard Analytics** - Comprehensive trading insights and summaries
 - **Responsive Design** - Modern UI that works on all devices
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 s-exchange/
@@ -33,7 +33,7 @@ s-exchange/
 └── README.md
 ```
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Backend
 - **Node.js** - Runtime environment
@@ -48,7 +48,7 @@ s-exchange/
 - **Context API** - State management
 - **CSS3** - Styling
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js (v16 or higher)
@@ -118,7 +118,7 @@ s-exchange/
    npm run dev
    ```
 
-## 📚 API Documentation
+##  API Documentation
 
 ### Authentication Endpoints
 - `POST /api/auth/register` - User registration
@@ -136,7 +136,7 @@ s-exchange/
 - `POST /api/watchlist/add` - Add stock to watchlist
 - `DELETE /api/watchlist/remove` - Remove stock from watchlist
 
-## 🔧 Development
+##  Development
 
 ### Code Style
 - Use ESLint for code linting
@@ -154,7 +154,7 @@ cd dashboard
 npm test
 ```
 
-## 📦 Deployment
+##  Deployment
 
 ### Backend Deployment
 1. Set up environment variables
@@ -165,7 +165,7 @@ npm test
 1. Build the production version
 2. Deploy to static hosting (Netlify, Vercel, etc.)
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -173,18 +173,18 @@ npm test
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Support
+##  Support
 
 If you encounter any issues or have questions, please:
 1. Check the existing issues
 2. Create a new issue with detailed information
 3. Contact the development team
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - Stock market data providers
 - Open source community
