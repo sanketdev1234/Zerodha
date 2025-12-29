@@ -10,7 +10,7 @@ A full-stack stock trading platform built with React, Node.js, and Express.
 - **Order Management** - Place, track, and manage trading orders
 - **Dashboard Analytics** - Comprehensive trading insights and summaries
 - **Responsive Design** - Modern UI that works on all devices
-
+-  **Learning for Beginner** - Modern UI that provide the quizes and tutorials for stock market related topic
 ##  Project Structure
 
 ```
@@ -24,7 +24,6 @@ s-exchange/
 ├── dashboard/             # React dashboard application
 │   ├── src/
 │   │   ├── components/    # React components
-│   │   ├── Context/       # React context providers
 │   │   └── assets/        # Static assets
 ├── frontend/              # React landing page
 │   ├── src/
