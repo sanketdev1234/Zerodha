@@ -5,7 +5,7 @@ A full-stack stock trading platform built with React, Node.js, and Express.
 ##  Features
 
 - **User Authentication & Authorization** - Secure login/signup with MFA support
-- **Real-time Stock Trading** - Buy/sell stocks with live market data
+- **virtual Stock Trading** - Buy/sell stocks with dumy market data
 - **Portfolio Management** - Track holdings, positions, and watchlists
 - **Order Management** - Place, track, and manage trading orders
 - **Dashboard Analytics** - Comprehensive trading insights and summaries
@@ -39,20 +39,18 @@ s-exchange/
 - **Node.js** - Runtime environment
 - **Express.js** - Web framework
 - **MongoDB** - Database
-- **JWT** - Authentication
-- **bcrypt** - Password hashing
+- **Passportjs** - Authentication
+- **speakeasy** - MFA
 
 ### Frontend
 - **React** - UI library
 - **Vite** - Build tool
-- **Context API** - State management
 - **CSS3** - Styling
 
 ##  Getting Started
 
 ### Prerequisites
 - Node.js (v16 or higher)
-- npm or yarn
 - MongoDB (local or cloud)
 
 ### Installation
@@ -86,18 +84,26 @@ s-exchange/
 1. **Backend Environment Variables**
    Create a `.env` file in the `backend/` directory:
    ```env
-   PORT=5000
-   MONGODB_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   NODE_ENV=development
+   PORT=8080
+   ATLAS_DBURL=your_mongodb_connection_string
+   SECRET=your_jwt_secret
+   GEMINI_API_KEY=you gemini api key
    ```
 
 2. **Frontend Environment Variables**
-   Create a `.env` file in the `dashboard/` directory:
+   Create a `.env` file in the `Frontend/` directory:
    ```env
-   VITE_API_URL=http://localhost:5000
+   VITE_API_URL
+   VITE_DASHBOARD_URL
    ```
-
+3. **Backend Environment Variables**
+   Create a `.env` file in the `Dashboard/` directory:
+   ```env
+   VITE_API_URL=dumy stock market data api url
+   VITE_API_KEY
+   VITE_API_BACKEND_URL
+   VITE_FRONTEND_URL
+   ```
 ### Running the Application
 
 1. **Start the backend server**
@@ -136,23 +142,6 @@ s-exchange/
 - `POST /api/watchlist/add` - Add stock to watchlist
 - `DELETE /api/watchlist/remove` - Remove stock from watchlist
 
-##  Development
-
-### Code Style
-- Use ESLint for code linting
-- Follow consistent naming conventions
-- Write meaningful commit messages
-
-### Testing
-```bash
-# Run backend tests
-cd backend
-npm test
-
-# Run frontend tests
-cd dashboard
-npm test
-```
 
 ##  Deployment
 
@@ -173,20 +162,18 @@ npm test
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-##  License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-##  Support
+<img width="1896" height="818" alt="Screenshot 2025-12-29 221609" src="https://github.com/user-attachments/assets/9fd60b80-7b9a-480d-9c0a-de6c80caab1c" />
+<img width="1915" height="891" alt="Screenshot 2025-12-29 221632" src="https://github.com/user-attachments/assets/4f0c1409-f145-4f4d-87ae-c7e3a40e2aec" />
+<img width="1330" height="676" alt="Screenshot 2025-12-29 221700" src="https://github.com/user-attachments/assets/64889af4-20b9-4776-9a18-258c5ef73379" />
+<img width="1256" height="870" alt="image" src="https://github.com/user-attachments/assets/91fce6f9-3b56-48f5-95ed-9379b8edbeca" />
+<img width="1890" height="901" alt="image" src="https://github.com/user-attachments/assets/03888c54-4a98-49de-a3a2-2030965b920e" />
+<img width="1919" height="1016" alt="image" src="https://github.com/user-attachments/assets/43e5ba8e-7946-435d-abb2-2eef1227d66f" />
+<img width="1394" height="763" alt="image" src="https://github.com/user-attachments/assets/74105bf9-204a-47b2-89b2-b9b3d31bc463" />
 
-If you encounter any issues or have questions, please:
-1. Check the existing issues
-2. Create a new issue with detailed information
-3. Contact the development team
 
-##  Acknowledgments
 
-- Stock market data providers
-- Open source community
-- Contributors and maintainers
+
+
 
