@@ -164,7 +164,7 @@ s-exchange/
 
 
 
-<img width="1896" height="818" alt="Screenshot 2025-12-29 221609" src="https://github.com/user-attachments/assets/9fd60b80-7b9a-480d-9c0a-de6c80caab1c" />
+<img width="1868" height="814" alt="image" src="https://github.com/user-attachments/assets/bdd78944-ea06-4524-a768-e0698ce7f633" />
 <img width="1915" height="891" alt="Screenshot 2025-12-29 221632" src="https://github.com/user-attachments/assets/4f0c1409-f145-4f4d-87ae-c7e3a40e2aec" />
 <img width="1330" height="676" alt="Screenshot 2025-12-29 221700" src="https://github.com/user-attachments/assets/64889af4-20b9-4776-9a18-258c5ef73379" />
 <img width="1256" height="870" alt="image" src="https://github.com/user-attachments/assets/91fce6f9-3b56-48f5-95ed-9379b8edbeca" />
